@@ -20,7 +20,7 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
-    <ProjectGuid>{CB370FCA-AA02-4E3F-A495-250575D73771}</ProjectGuid>
+    <ProjectGuid>{2DD2D6AC-1C59-42BF-B556-B15E29F142DB}</ProjectGuid>
     <RootNamespace>CivilWar</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
@@ -123,6 +123,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Bullet.cpp" />
+    <ClCompile Include="CivilWar.cpp" />
+    <ClCompile Include="Soldier.cpp" />
+    <ClCompile Include="Source.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="BaseCWException.h" />
+    <ClInclude Include="Bullet.h" />
+    <ClInclude Include="CivilWar.h" />
+    <ClInclude Include="Soldier.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
