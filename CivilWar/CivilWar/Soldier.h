@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Game.h"
+
 class Soldier
 {
 public:
@@ -7,4 +9,7 @@ public:
 	~Soldier();
 
 private:
+	Point center;
+	Radius radius;
+
 };

@@ -7,8 +7,15 @@ CivilWar::CivilWar()
 
 }
 
+
+
 CivilWar::~CivilWar()
-= default;
+{
+	delete(m_blueSoldier);
+	delete(m_greenSoldier);
+}
+
+
 
 void CivilWar::start(Soldier* greenSoldier, Soldier* blueSoldier)
 {
