@@ -17,13 +17,13 @@ Server::~Server()
 
 
 
-void Server::start()
+void Server::start(const char* ip, int port)
 {
 	std::cout << "SERVER STARTUP" << std::endl;
 
 	initializeWinSock();
 	createSockets();
-	initializeSockAddr();
+	initializeSockAddr(ip, port);
 	bindSockets();
 
 	std::cout << "SERVER STARTED\n" << std::endl;
@@ -72,14 +72,14 @@ void Server::createSockets()
 
 
 
-void Server::initializeSockAddr()
+void Server::initializeSockAddr(const char* ip, int port)
 {
 	// initialize TCP socket addr structure
-	m_socketTcp->setSockAddr(SERVER_IP, SERVER_PORT);
+	m_socketTcp->setSockAddr(ip, port);
 	std::cout << "  |  tcp socket addr initialized" << std::endl;
 
 	// initialize UDP socket addr structure
-	m_socketUdp->setSockAddr(SERVER_IP, SERVER_PORT);
+	m_socketUdp->setSockAddr(ip, port);
 	std::cout << "  |  udp socket addr initialized" << std::endl;
 }
 
@@ -115,6 +115,4 @@ void Server::bindSockets()
 void Server::waitClientsConnection()
 {
 	SOCKET acceptSocket;
-
-
 }

@@ -17,7 +17,7 @@ public:
 	Server();
 	~Server();
 
-	void start();
+	void start(const char* ip, int port);
 	void waitClientsConnection();
 
 private:
@@ -33,6 +33,6 @@ private:
 	// methods
 	void initializeWinSock();
 	void createSockets();
-	void initializeSockAddr();
+	void initializeSockAddr(const char* ip, int port);
 	void bindSockets();
 };

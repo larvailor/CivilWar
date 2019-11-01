@@ -15,7 +15,7 @@ int main()
 {
 	Server* server = new Server();
 	try {
-		server->start();
+		server->start(SERVER_IP, SERVER_PORT);
 		server->waitClientsConnection();
 	}
 	catch (BaseCWServerException e) {
