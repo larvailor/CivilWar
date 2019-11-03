@@ -5,11 +5,11 @@
 
 #include <WinSock2.h>
 
-class SocketTCP
+class CwServerSocketTcp
 {
 public:
-	SocketTCP();
-	~SocketTCP();
+	CwServerSocketTcp();
+	~CwServerSocketTcp();
 
 	SOCKET getSocket() const { return m_socket; }
 

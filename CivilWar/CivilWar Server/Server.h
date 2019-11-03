@@ -5,8 +5,8 @@
 
 #include "BaseCWServerException.h"
 
-#include "SocketTCP.h"
-#include "SocketUDP.h"
+#include "CwServerSocketTcp.h"
+#include "CwServerSocketUdp.h"
 
 #include <iostream>
 #include <WinSock2.h>
@@ -22,8 +22,8 @@ public:
 
 private:
 	// variables
-	SocketTCP* m_socketTcp;
-	SocketUDP* m_socketUdp;
+	CwServerSocketTcp* m_socketTcp;
+	CwServerSocketUdp* m_socketUdp;
 
 	SOCKET m_greenSoldierSocket;
 	SOCKET m_blueSoldierSocket;

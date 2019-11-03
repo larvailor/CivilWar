@@ -5,11 +5,11 @@
 
 #include <WinSock2.h>
 
-class SocketUDP
+class CwServerSocketUdp
 {
 public:
-	SocketUDP();
-	~SocketUDP();
+	CwServerSocketUdp();
+	~CwServerSocketUdp();
 
 	SOCKET getSocket() const { return m_socket; }
 

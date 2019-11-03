@@ -2,7 +2,9 @@
 
 Server::Server() :
 	m_socketTcp(nullptr),
-	m_socketUdp(nullptr)
+	m_socketUdp(nullptr),
+	m_greenSoldierSocket(0),
+	m_blueSoldierSocket(0)
 {
 
 }
@@ -49,7 +51,7 @@ void Server::createSockets()
 {
 	// create TCP socket
 	try {
-		m_socketTcp = new SocketTCP();
+		m_socketTcp = new CwServerSocketTcp();
 	}
 	catch (BaseCWServerException e) {
 		WSACleanup();
@@ -60,7 +62,7 @@ void Server::createSockets()
 
 	// create UDP socket
 	try {
-		m_socketUdp = new SocketUDP();
+		m_socketUdp = new CwServerSocketUdp();
 	}
 	catch (BaseCWServerException e) {
 		WSACleanup();

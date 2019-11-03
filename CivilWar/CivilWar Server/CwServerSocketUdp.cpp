@@ -1,26 +1,26 @@
-#include "SocketUDP.h"
+#include "CwServerSocketUdp.h"
 
-SocketUDP::SocketUDP()
+CwServerSocketUdp::CwServerSocketUdp()
 {
 	m_socket = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP);
 	if (m_socket == INVALID_SOCKET) {
-		throw BaseCWServerException("SocketUDP.socket failed with error: " + WSAGetLastError());
+		throw BaseCWServerException("CwServerSocketUdp.socket failed with error: " + WSAGetLastError());
 	}
 }
 
 
 
-SocketUDP::~SocketUDP()
+CwServerSocketUdp::~CwServerSocketUdp()
 {
 	int iResult = closesocket(m_socket);
 	if (iResult == SOCKET_ERROR) {
-		throw BaseCWServerException("SocketUDP.closesocket failed with error: " + WSAGetLastError());
+		throw BaseCWServerException("CwServerSocketUdp.closesocket failed with error: " + WSAGetLastError());
 	}
 }
 
 
 
-void SocketUDP::setSockAddr(const char* ip, int port)
+void CwServerSocketUdp::setSockAddr(const char* ip, int port)
 {
 	m_socketAddr.sin_addr.s_addr = inet_addr(ip);
 	m_socketAddr.sin_family = AF_INET;
@@ -29,11 +29,11 @@ void SocketUDP::setSockAddr(const char* ip, int port)
 
 
 
-void SocketUDP::bindSocket()
+void CwServerSocketUdp::bindSocket()
 {
 	int iResult = bind(m_socket, (SOCKADDR*)&m_socketAddr, sizeof(m_socketAddr));
 	if (iResult == SOCKET_ERROR) {
-		std::string errorMsg = "SocketUDP.bind failed with error: " + WSAGetLastError();
+		std::string errorMsg = "CwServerSocketUdp.bind failed with error: " + WSAGetLastError();
 		iResult = closesocket(m_socket);
 		if (iResult == SOCKET_ERROR) {
 			errorMsg += "\nSocketUDP.closesocket failed with error: " + WSAGetLastError();
