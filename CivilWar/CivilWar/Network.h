@@ -6,6 +6,9 @@
 
 #include "BaseCWException.h"
 
+#include "CwClientSocketTcp.h"
+#include "CwClientSocketUdp.h"
+
 #include <WinSock2.h>
 #include <list>
 
@@ -15,26 +18,16 @@ public:
 	Network();
 	~Network();
 
-	void connectToCWServer();
+	void connectToCWServer(const char* ip, int port);
 
 private:
 	// variables
-	/*Soldier* m_player;
-	Soldier* m_enemy;
+	CwClientSocketTcp* m_socketTcp;
+	//CwClientSocketUdp* m_socketUdp;
 
-	std::list<Bullet> m_playerBullets;
-	std::list<Bullet> m_enemyBullets;*/
 
-	SOCKET m_listenClientSocket;
-	//SOCKADDR_IN m_clientAddr;
-	//int m_clientAddrSize;
-
-	SOCKADDR_IN m_serverAddr;
-	int m_serverAddrSize;
 
 	// methods
 	void initializeWinSock();
-	void createSocket();
-	void initializeSockAddr();
-	void bindSocket();
+	void createSockets();
 };

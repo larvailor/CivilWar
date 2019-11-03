@@ -1,5 +1,9 @@
 #include "Server.h"
 
+#include "BaseCWServerException.h"
+
+#include <iostream>
+
 Server::Server() :
 	m_socketTcp(nullptr),
 	m_socketUdp(nullptr),

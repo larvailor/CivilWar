@@ -1,4 +1,7 @@
 #pragma once
+#pragma warning(disable: 4996)
+
+#include "BaseCWException.h"
 
 #include <WinSock2.h>
 
@@ -11,9 +14,7 @@ public:
 	SOCKET getSocket() const { return m_socket; }
 
 	void setSockAddr(const char* ip, int port);
-	void bindSocket();
-	void doListen();
-	SOCKET acceptConnection();
+	void connectToCwServer();
 
 private:
 	SOCKET m_socket;

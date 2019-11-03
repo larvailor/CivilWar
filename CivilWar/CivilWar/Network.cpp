@@ -1,17 +1,32 @@
 #include "Network.h"
 
-Network::Network()
+Network::Network() :
+	m_socketTcp(nullptr)
 {
-	initializeWinSock();
-	createSocket();
-	initializeSockAddr();
-	//bindSocket();
+
 }
 
 
 
 Network::~Network()
-= default;
+{
+	delete(m_socketTcp);
+}
+
+
+
+void Network::connectToCWServer(const char* ip, int port)
+{
+	initializeWinSock();
+	createSockets();
+	try {
+		m_socketTcp->connectToCwServer(ip, port);
+	}
+	catch (BaseCWException e) {
+		WSACleanup();
+		throw e;
+	}
+}
 
 
 
@@ -21,55 +36,25 @@ void Network::initializeWinSock()
 	WSADATA wsaData;
 	int iResult = WSAStartup(wVersionRequested, &wsaData);
 	if (iResult != 0) {
-		throw(BaseCWException("WSAStartup failed with error: " + WSAGetLastError()));
+		std::string errorMsg = "Network.initializeWinSock failed with error: " + std::to_string(WSAGetLastError());
+		throw BaseCWException(errorMsg);
 	}
 }
 
 
 
-void Network::createSocket()
+void Network::createSockets()
 {
-	m_listenClientSocket = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP);
-	if (m_listenClientSocket == INVALID_SOCKET) {
-		WSACleanup();
-		throw(BaseCWException("socket failed with error: " + WSAGetLastError()));
+	// create TCP socket
+	try {
+		m_socketTcp = new CwClientSocketTcp();
 	}
-}
-
-
-
-void Network::initializeSockAddr()
-{
-	m_serverAddrSize = sizeof(m_serverAddr);
-
-	m_serverAddr.sin_addr.s_addr = inet_addr(SERVER_IP);
-	m_serverAddr.sin_family = AF_INET;
-	m_serverAddr.sin_port = htons(SERVER_PORT);
-}
-
-
-
-void Network::bindSocket()
-{
-	/*int iResult = bind(m_listenClientSocket, (SOCKADDR*)&m_serverAddr, m_serverAddrSize);
-	if (iResult == SOCKET_ERROR) {
-		std::string errorMsg = "bind failed with error: " + WSAGetLastError();
-		iResult = closesocket(m_listenClientSocket);
-		if (iResult == SOCKET_ERROR) {
-			errorMsg += "\nclosesocket failed with error: " + WSAGetLastError();
-		}
+	catch (BaseCWException e) {
 		WSACleanup();
-		throw(BaseCWException(errorMsg));
-	}*/
+		throw e;
+	}
+
+	// create UDP socket
+	// TBD
 }
 
-
-
-void Network::connectToCWServer()
-{
-	int connectBuffSize = 2;
-	char connectBuff[2] = "Y";
-
-	int iResult = sendto(m_listenClientSocket, connectBuff, connectBuffSize, 0, (SOCKADDR*)&m_serverAddr, m_serverAddrSize);
-
-}
