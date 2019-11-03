@@ -16,6 +16,7 @@ public:
 	void setSockAddr(const char* ip, int port);
 	void bindSocket();
 	void doListen();
+	SOCKET acceptConnection();
 
 private:
 	SOCKET m_socket;

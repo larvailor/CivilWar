@@ -27,6 +27,7 @@ void Server::start(const char* ip, int port)
 	createSockets();
 	initializeSockAddr(ip, port);
 	bindSockets();
+	doListen();
 
 	std::cout << "SERVER STARTED\n" << std::endl;
 }
@@ -114,7 +115,33 @@ void Server::bindSockets()
 
 
 
+void Server::doListen()
+{
+	try {
+		m_socketTcp->doListen();
+	}
+	catch (BaseCWServerException e) {
+		WSACleanup();
+		throw e;
+	}
+}
+
+
 void Server::waitClientsConnection()
 {
+	std::cout << "Waiting for clients..." << std::endl;
+
 	SOCKET acceptSocket;
+	while (m_greenSoldierSocket == 0 || m_blueSoldierSocket == 0) {
+		try {
+			acceptSocket = m_socketTcp->acceptConnection();
+			m_greenSoldierSocket == 0 ? m_greenSoldierSocket = acceptSocket : m_blueSoldierSocket = acceptSocket;
+			
+			std::cout << "Client conected!" << std::endl;
+		}
+		catch (BaseCWServerException e) {
+			WSACleanup();
+			throw e;
+		}
+	}
 }
