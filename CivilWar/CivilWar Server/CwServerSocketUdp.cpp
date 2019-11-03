@@ -1,4 +1,8 @@
+#pragma warning(disable: 4996)
+
 #include "CwServerSocketUdp.h"
+
+#include "BaseCWServerException.h"
 
 CwServerSocketUdp::CwServerSocketUdp()
 {
@@ -13,11 +17,7 @@ CwServerSocketUdp::CwServerSocketUdp()
 
 CwServerSocketUdp::~CwServerSocketUdp()
 {
-	int iResult = closesocket(m_socket);
-	if (iResult == SOCKET_ERROR) {
-		std::string errorMsg = "CwServerSocketUdp.closesocket failed with error: " + std::to_string(WSAGetLastError());
-		throw BaseCWServerException("CwServerSocketUdp.closesocket failed with error: " + WSAGetLastError());
-	}
+	closesocket(m_socket);
 }
 
 

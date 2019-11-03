@@ -1,4 +1,8 @@
+#pragma warning(disable: 4996)
+
 #include "CwServerSocketTcp.h"
+
+#include "BaseCWServerException.h"
 
 CwServerSocketTcp::CwServerSocketTcp()
 {
@@ -13,11 +17,7 @@ CwServerSocketTcp::CwServerSocketTcp()
 
 CwServerSocketTcp::~CwServerSocketTcp()
 {
-	int iResult = closesocket(m_socket);
-	if (iResult == SOCKET_ERROR) {
-		std::string errorMsg = "CwServerSocketTcp.closesocket failed with error: " + std::to_string(WSAGetLastError());
-		throw BaseCWServerException(errorMsg);
-	}
+	closesocket(m_socket);
 }
 
 
@@ -61,4 +61,6 @@ SOCKET CwServerSocketTcp::acceptConnection()
 		std::string errorMsg = "CwServerSocketTcp.accept failed with error: " + std::to_string(WSAGetLastError());
 		throw BaseCWServerException(errorMsg);
 	}
+
+	return acceptSocket;
 }
