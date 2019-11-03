@@ -40,7 +40,8 @@ void Server::initializeWinSock()
 	WSADATA wsaData;
 	int iResult = WSAStartup(wVersionRequested, &wsaData);
 	if (iResult != 0) {
-		throw BaseCWServerException("WSAStartup failed with error: " + WSAGetLastError());
+		std::string errorMsg = "WSAStartup failed with error: " + std::to_string(WSAGetLastError());
+		throw BaseCWServerException(errorMsg);
 	}
 	
 	std::cout << "  |  WSAStartup success" << std::endl;
