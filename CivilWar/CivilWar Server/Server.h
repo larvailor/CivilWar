@@ -36,4 +36,5 @@ private:
 	void createSockets();
 	void initializeSockAddr(const char* ip, int port);
 	void bindSockets();
+	void doListen();
 };
