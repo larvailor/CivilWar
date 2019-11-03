@@ -18,6 +18,7 @@ public:
 	~Server();
 
 	void start(const char* ip, int port);
+
 	void waitClientsConnection();
 
 private:
