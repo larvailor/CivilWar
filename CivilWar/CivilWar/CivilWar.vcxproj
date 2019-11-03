@@ -123,12 +123,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CwClientSocketTcp.cpp" />
+    <ClCompile Include="CwClientSocketUdp.cpp" />
     <ClCompile Include="Network.cpp" />
     <ClCompile Include="Source Client.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BaseCWException.h" />
     <ClInclude Include="Config.h" />
+    <ClInclude Include="CwClientSocketTcp.h" />
+    <ClInclude Include="CwClientSocketUdp.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Network.h" />
   </ItemGroup>
