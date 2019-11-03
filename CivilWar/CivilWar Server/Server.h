@@ -5,8 +5,8 @@
 
 #include "BaseCWServerException.h"
 
-#include "SocketTCP.h"
-#include "SocketUDP.h"
+#include "CwServerSocketTcp.h"
+#include "CwServerSocketUdp.h"
 
 #include <iostream>
 #include <WinSock2.h>
@@ -17,13 +17,14 @@ public:
 	Server();
 	~Server();
 
-	void start();
+	void start(const char* ip, int port);
+
 	void waitClientsConnection();
 
 private:
 	// variables
-	SocketTCP* m_socketTcp;
-	SocketUDP* m_socketUdp;
+	CwServerSocketTcp* m_socketTcp;
+	CwServerSocketUdp* m_socketUdp;
 
 	SOCKET m_greenSoldierSocket;
 	SOCKET m_blueSoldierSocket;
@@ -33,6 +34,6 @@ private:
 	// methods
 	void initializeWinSock();
 	void createSockets();
-	void initializeSockAddr();
+	void initializeSockAddr(const char* ip, int port);
 	void bindSockets();
 };

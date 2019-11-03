@@ -2,7 +2,9 @@
 
 Server::Server() :
 	m_socketTcp(nullptr),
-	m_socketUdp(nullptr)
+	m_socketUdp(nullptr),
+	m_greenSoldierSocket(0),
+	m_blueSoldierSocket(0)
 {
 
 }
@@ -17,13 +19,13 @@ Server::~Server()
 
 
 
-void Server::start()
+void Server::start(const char* ip, int port)
 {
 	std::cout << "SERVER STARTUP" << std::endl;
 
 	initializeWinSock();
 	createSockets();
-	initializeSockAddr();
+	initializeSockAddr(ip, port);
 	bindSockets();
 
 	std::cout << "SERVER STARTED\n" << std::endl;
@@ -49,7 +51,7 @@ void Server::createSockets()
 {
 	// create TCP socket
 	try {
-		m_socketTcp = new SocketTCP();
+		m_socketTcp = new CwServerSocketTcp();
 	}
 	catch (BaseCWServerException e) {
 		WSACleanup();
@@ -60,7 +62,7 @@ void Server::createSockets()
 
 	// create UDP socket
 	try {
-		m_socketUdp = new SocketUDP();
+		m_socketUdp = new CwServerSocketUdp();
 	}
 	catch (BaseCWServerException e) {
 		WSACleanup();
@@ -72,14 +74,14 @@ void Server::createSockets()
 
 
 
-void Server::initializeSockAddr()
+void Server::initializeSockAddr(const char* ip, int port)
 {
 	// initialize TCP socket addr structure
-	m_socketTcp->setSockAddr(SERVER_IP, SERVER_PORT);
+	m_socketTcp->setSockAddr(ip, port);
 	std::cout << "  |  tcp socket addr initialized" << std::endl;
 
 	// initialize UDP socket addr structure
-	m_socketUdp->setSockAddr(SERVER_IP, SERVER_PORT);
+	m_socketUdp->setSockAddr(ip, port);
 	std::cout << "  |  udp socket addr initialized" << std::endl;
 }
 
@@ -115,6 +117,4 @@ void Server::bindSockets()
 void Server::waitClientsConnection()
 {
 	SOCKET acceptSocket;
-
-
 }
