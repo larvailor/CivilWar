@@ -132,7 +132,8 @@ void Server::doListen()
 }
 
 
-void Server::waitClientsConnection()
+
+void Server::waitForClients()
 {
 	std::cout << "Waiting for clients..." << std::endl;
 
@@ -149,4 +150,56 @@ void Server::waitClientsConnection()
 			throw e;
 		}
 	}
+}
+
+
+
+void Server::sendBeforeBattleMsg(SoldierMsg* greenSoldierMsg, SoldierMsg* blueSoldierMsg)
+{
+	int iResult = 0;
+	try {
+		iResult = sendSoldierMsg(greenSoldierMsg);
+	}
+	catch (BaseCWServerException e) {
+		std::cout << e.getMsg() << std::endl;
+	}
+
+	if (iResult == SOCKET_ERROR) {
+		std::cout << "sendBeforeBattleMsg green soldier send failed wit error: " << WSAGetLastError() << std::endl;
+	}
+	
+	try {
+		iResult = sendSoldierMsg(blueSoldierMsg);
+	}
+	catch (BaseCWServerException e) {
+		std::cout << e.getMsg() << std::endl;
+	}
+
+	if (iResult == SOCKET_ERROR) {
+		std::cout << "sendBeforeBattleMsg blue soldier send failed wit error: " << WSAGetLastError() << std::endl;
+	}
+}
+
+
+
+int Server::sendSoldierMsg(SoldierMsg* soldierMsg)
+{
+	std::vector<char> msg = soldierMsg->getMsg();
+	delete(soldierMsg);
+
+	SOCKET clientSocket;
+	switch (msg[1])
+	{
+	case GREEN_SOLDIER:
+		clientSocket = m_greenSoldierSocket;
+		break;
+	case BLUE_SOLDIER:
+		clientSocket = m_blueSoldierSocket;
+		break;
+	default:
+		std::string errorMsg = "sendSoldierMsg incorrect advanced type";
+		throw BaseCWServerException(errorMsg);
+	}
+
+	return send(clientSocket, msg.data(), msg.size(), NULL);
 }

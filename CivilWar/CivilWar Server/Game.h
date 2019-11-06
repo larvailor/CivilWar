@@ -1,32 +1,46 @@
 #pragma once
 
-typedef float Radius;
-typedef float Speed;
-typedef float Width;
-typedef float Height;
+#include "Config.h"
+#include "Serializer.h"
+#include "Server.h"
+#include "CivilWar.h"
 
-typedef struct point {
-	float x;
-	float y;
-} Point;
+#include "BaseCWServerException.h"
 
-typedef struct soldier {
-	Point center;
-	Radius radius;
+enum GameState {
+	BEFORE_BATTLE,
+	BATTLE,
+	AFTER_BATTLE
 };
 
-enum DirectionX { LEFT, RIGHT, NONE_X };
-enum DirectionY { UP, DOWN, NONE_Y };
+class Game
+{
+public:
+	Game();
+	~Game();
 
-typedef struct bullet {
-	Point center;
-	Radius radius;
-	DirectionX dirX;
-	DirectionY dirY;
-	Speed speed;
-};
+	// methods
+	void initAll();
+	void launchServer();
+	void waitForClients();
+	void start();
+	void handleState();
 
-typedef struct battlefield {
-	Width width;
-	Height height;
+	GameState getGameState() const { return m_gameState; }
+	bool isRunning() const { return m_is_running; }
+	void setGameState(GameState gameState) { m_gameState = gameState; }
+
+private:
+	//variables
+	GameState m_gameState;
+	Serializer* m_serializer;
+	Server* m_server;
+	CivilWar* m_cw;
+
+	bool m_is_running;
+
+
+
+	// methods
+	void handleBeforeBattle();
 };

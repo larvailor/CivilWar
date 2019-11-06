@@ -28,25 +28,22 @@
     <Filter Include="Header Files\Network">
       <UniqueIdentifier>{580a3602-5d29-4b01-a9df-72eff3bc77a5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Types">
+      <UniqueIdentifier>{8d12e89e-bdcb-4dfa-a99f-84db51728b93}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Serialize">
+      <UniqueIdentifier>{7a19eca0-8602-4833-8cdc-3e0de4b09694}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Network\Messages">
+      <UniqueIdentifier>{5d507c24-02f1-4e35-9939-824c2148dfe5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Serialize">
+      <UniqueIdentifier>{008932ff-1190-497a-9a88-e26d45fd439a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Game.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Config.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="BaseCWServerException.h">
       <Filter>Header Files\Exceptions</Filter>
-    </ClInclude>
-    <ClInclude Include="..\CivilWar\Soldier.h">
-      <Filter>Header Files\Model</Filter>
-    </ClInclude>
-    <ClInclude Include="..\CivilWar\Bullet.h">
-      <Filter>Header Files\Model</Filter>
-    </ClInclude>
-    <ClInclude Include="..\CivilWar\CivilWar.h">
-      <Filter>Header Files\Model</Filter>
     </ClInclude>
     <ClInclude Include="Server.h">
       <Filter>Header Files\Network</Filter>
@@ -57,19 +54,43 @@
     <ClInclude Include="CwServerSocketTcp.h">
       <Filter>Header Files\Network</Filter>
     </ClInclude>
+    <ClInclude Include="CivilWar.h">
+      <Filter>Header Files\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Soldier.h">
+      <Filter>Header Files\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Bullet.h">
+      <Filter>Header Files\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelsAsDataTypes.h">
+      <Filter>Header Files\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Config.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Types.h">
+      <Filter>Header Files\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Serializer.h">
+      <Filter>Header Files\Serialize</Filter>
+    </ClInclude>
+    <ClInclude Include="Msg.h">
+      <Filter>Header Files\Network\Messages</Filter>
+    </ClInclude>
+    <ClInclude Include="SoldierMsg.h">
+      <Filter>Header Files\Network\Messages</Filter>
+    </ClInclude>
+    <ClInclude Include="MsgTypes.h">
+      <Filter>Header Files\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>Header Files\Model</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source Server.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\CivilWar\Bullet.cpp">
-      <Filter>Source Files\Model</Filter>
-    </ClCompile>
-    <ClCompile Include="..\CivilWar\CivilWar.cpp">
-      <Filter>Source Files\Model</Filter>
-    </ClCompile>
-    <ClCompile Include="..\CivilWar\Soldier.cpp">
-      <Filter>Source Files\Model</Filter>
     </ClCompile>
     <ClCompile Include="Server.cpp">
       <Filter>Source Files\Network</Filter>
@@ -79,6 +100,21 @@
     </ClCompile>
     <ClCompile Include="CwServerSocketTcp.cpp">
       <Filter>Source Files\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="CivilWar.cpp">
+      <Filter>Source Files\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="Soldier.cpp">
+      <Filter>Source Files\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="Bullet.cpp">
+      <Filter>Source Files\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="Serializer.cpp">
+      <Filter>Source Files\Serialize</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>Source Files\Model</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

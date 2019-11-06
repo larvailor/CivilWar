@@ -8,7 +8,6 @@
 int main()
 {
 	Network* network = new Network();
-	connectToCwServer();
 	try {
 		network->connectToCWServer(SERVER_IP, SERVER_PORT);
 	}

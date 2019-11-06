@@ -3,6 +3,8 @@
 #include "CwServerSocketTcp.h"
 #include "CwServerSocketUdp.h"
 
+#include "SoldierMsg.h"
+
 class Server
 {
 public:
@@ -11,7 +13,9 @@ public:
 	 
 	void start(const char* ip, int port);
 
-	void waitClientsConnection();
+	void waitForClients();
+
+	void sendBeforeBattleMsg(SoldierMsg* greenSoldierMsg, SoldierMsg* blueSoldierMsg);
 
 private:
 	// variables
@@ -29,4 +33,6 @@ private:
 	void initializeSockAddr(const char* ip, int port);
 	void bindSockets();
 	void doListen();
+
+	int sendSoldierMsg(SoldierMsg* soldierMsg);
 };
