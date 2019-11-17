@@ -123,24 +123,32 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\CivilWar\Bullet.cpp" />
-    <ClCompile Include="..\CivilWar\CivilWar.cpp" />
-    <ClCompile Include="..\CivilWar\Soldier.cpp" />
+    <ClCompile Include="Bullet.cpp" />
+    <ClCompile Include="CivilWar.cpp" />
     <ClCompile Include="CwServerSocketTcp.cpp" />
+    <ClCompile Include="Game.cpp" />
+    <ClCompile Include="Serializer.cpp" />
     <ClCompile Include="Server.cpp" />
     <ClCompile Include="CwServerSocketUdp.cpp" />
+    <ClCompile Include="Soldier.cpp" />
     <ClCompile Include="Source Server.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\CivilWar\Bullet.h" />
-    <ClInclude Include="..\CivilWar\CivilWar.h" />
-    <ClInclude Include="..\CivilWar\Soldier.h" />
     <ClInclude Include="BaseCWServerException.h" />
+    <ClInclude Include="Bullet.h" />
+    <ClInclude Include="CivilWar.h" />
     <ClInclude Include="Config.h" />
     <ClInclude Include="CwServerSocketTcp.h" />
     <ClInclude Include="CwServerSocketUdp.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="ModelsAsDataTypes.h" />
+    <ClInclude Include="Msg.h" />
+    <ClInclude Include="MsgTypes.h" />
+    <ClInclude Include="Serializer.h" />
+    <ClInclude Include="SoldierMsg.h" />
+    <ClInclude Include="Types.h" />
     <ClInclude Include="Server.h" />
+    <ClInclude Include="Soldier.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
