@@ -1,3 +1,5 @@
+#include "BaseCWException.h"
+
 #include "Network.h"
 
 Network::Network() :
@@ -53,8 +55,21 @@ void Network::createSockets()
 		WSACleanup();
 		throw e;
 	}
-
-	// create UDP socket
-	// TBD
 }
 
+
+
+std::vector<char> Network::recvMsg()
+{
+	char* buffer = new char[2048];
+	int bytesReceived = 0;
+	m_socketTcp->recvMsgFromServer(buffer, 2048, bytesReceived);
+	
+	std::vector<char> msg;
+	for (int i = 0; i < bytesReceived; i++) {
+		msg.push_back(buffer[i]);
+	}
+
+	delete[](buffer);
+	return msg;
+}

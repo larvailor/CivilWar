@@ -2,15 +2,11 @@
 
 #pragma warning(disable: 4996)
 
-#include "Config.h"
-
-#include "BaseCWException.h"
-
 #include "CwClientSocketTcp.h"
-#include "CwClientSocketUdp.h"
 
 #include <WinSock2.h>
 #include <list>
+#include <vector>
 
 class Network
 {
@@ -19,11 +15,11 @@ public:
 	~Network();
 
 	void connectToCWServer(const char* ip, int port);
+	std::vector<char> recvMsg();
 
 private:
 	// variables
 	CwClientSocketTcp* m_socketTcp;
-	//CwClientSocketUdp* m_socketUdp;
 
 
 
