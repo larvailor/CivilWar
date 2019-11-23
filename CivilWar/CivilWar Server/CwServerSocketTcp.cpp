@@ -64,3 +64,17 @@ SOCKET CwServerSocketTcp::acceptConnection()
 
 	return acceptSocket;
 }
+
+
+
+int CwServerSocketTcp::sendMsgToClient(SOCKET clientSocket, char* msg, size_t msgSize, int flags)
+{
+	int bytesSent = send(clientSocket, msg, msgSize, flags);
+	
+	// wait while client confirm msg
+	char confirmBufferSize = 1;
+	char* confirmBuffer = new char[confirmBufferSize];
+	recv(clientSocket, confirmBuffer, confirmBufferSize, NULL);
+
+	return bytesSent;
+}

@@ -135,6 +135,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BaseCWServerException.h" />
+    <ClInclude Include="BattlefieldMsg.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="CivilWar.h" />
     <ClInclude Include="Config.h" />

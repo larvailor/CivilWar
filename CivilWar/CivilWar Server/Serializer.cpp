@@ -10,19 +10,19 @@ Serializer::~Serializer()
 
 
 
-void Serializer::init(struct battlefield bttlfieldStr, Soldier* greenSoldierClass, Soldier* blueSoldierClass)
+void Serializer::init(BattlefieldStruct* battlefieldStruct, Soldier* greenSoldierClass, Soldier* blueSoldierClass)
 {
-	setBattlefield(bttlfieldStr);
+	setBattlefield(battlefieldStruct);
 	setGreenSoldier(greenSoldierClass);
 	setBlueSoldier(blueSoldierClass);
 }
 
 
 
-void Serializer::setBattlefield(battlefield bttlfieldStr)
+void Serializer::setBattlefield(BattlefieldStruct* battlefieldStruct)
 {
-	m_battlefield.height = bttlfieldStr.height;
-	m_battlefield.width = bttlfieldStr.width;
+	m_battlefield.height = battlefieldStruct->height;
+	m_battlefield.width = battlefieldStruct->width;
 }
 
 
@@ -41,6 +41,17 @@ void Serializer::setBlueSoldier(Soldier* blueSoldier)
 	m_blueSoldier.center = blueSoldier->getCenter();
 	m_blueSoldier.radius = blueSoldier->getRadius();
 	m_blueSoldier.health = blueSoldier->getHealth();
+}
+
+
+
+BattlefieldMsg* Serializer::createBattlefieldMsg(BattlefieldStruct* battlefieldStruct)
+{
+	setBattlefield(battlefieldStruct);
+
+	BattlefieldMsg* battlefieldMsg = new BattlefieldMsg();
+	battlefieldMsg->create(&m_battlefield);
+	return battlefieldMsg;
 }
 
 

@@ -49,8 +49,8 @@ void CSerializer::translateBattlefieldMsg(std::vector<char> msg)
 	BattlefieldStruct* battlefield = reinterpret_cast<BattlefieldStruct*>(buffer);
 	setBattlefield(battlefield);
 
-	delete(battlefield);
-	delete[](buffer);
+	//delete(battlefield);
+	//delete[](buffer);
 }
 
 
@@ -73,8 +73,8 @@ void CSerializer::translateSoldierMsg(std::vector<char> msg)
 		break;
 	}
 
-	delete(soldier);
-	delete[](buffer);
+	//delete(soldier);
+	//delete[](buffer);
 }
 
 
