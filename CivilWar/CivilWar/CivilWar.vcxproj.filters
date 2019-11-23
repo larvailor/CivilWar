@@ -22,6 +22,24 @@
     <Filter Include="Header Files\Network">
       <UniqueIdentifier>{21fede64-256f-431b-881d-9ae176fc9049}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Types">
+      <UniqueIdentifier>{f033ae7c-4ff1-45dc-97fe-3db511b82d19}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Model">
+      <UniqueIdentifier>{c7e56b59-34a4-4340-817b-1ae4ec285e18}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Model">
+      <UniqueIdentifier>{b73c7e9e-6da2-452f-8b84-9e2d1b1e83a5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Serialize">
+      <UniqueIdentifier>{9183c773-73fd-4246-ae1c-32ee945759aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Serializer">
+      <UniqueIdentifier>{8666d97f-bd4a-4052-823d-8e333a04b4ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Network\Messages">
+      <UniqueIdentifier>{3b9441e1-fda0-4415-842a-4ed9b6975112}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source Client.cpp">
@@ -36,13 +54,16 @@
     <ClCompile Include="CwClientSocketUdp.cpp">
       <Filter>Source Files\Network</Filter>
     </ClCompile>
+    <ClCompile Include="CGame.cpp">
+      <Filter>Source Files\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="CSerializer.cpp">
+      <Filter>Source Files\Serializer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BaseCWException.h">
       <Filter>Header Files\Exceptions</Filter>
-    </ClInclude>
-    <ClInclude Include="Game.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Config.h">
       <Filter>Header Files</Filter>
@@ -55,6 +76,30 @@
     </ClInclude>
     <ClInclude Include="Network.h">
       <Filter>Header Files\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="CTypes.h">
+      <Filter>Header Files\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="CMsgTypesFromServer.h">
+      <Filter>Header Files\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="CMsgTypesToServer.h">
+      <Filter>Header Files\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="CModelsAsDataTypes.h">
+      <Filter>Header Files\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="CGame.h">
+      <Filter>Header Files\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="CSerializer.h">
+      <Filter>Header Files\Serialize</Filter>
+    </ClInclude>
+    <ClInclude Include="CMsg.h">
+      <Filter>Header Files\Network\Messages</Filter>
+    </ClInclude>
+    <ClInclude Include="CMoveAndFireMsg.h">
+      <Filter>Header Files\Network\Messages</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

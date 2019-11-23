@@ -22,7 +22,6 @@ CwClientSocketTcp::~CwClientSocketTcp()
 
 
 
-
 void CwClientSocketTcp::connectToCwServer(const char* ip, int port)
 {
 	// initialize SOCKADDR_IN structure
@@ -39,3 +38,8 @@ void CwClientSocketTcp::connectToCwServer(const char* ip, int port)
 }
 
 
+
+void CwClientSocketTcp::recvMsgFromServer(char* buffer, int bufferSize, int &bytesReceived)
+{
+	bytesReceived = recv(m_socket, buffer, bufferSize, NULL);
+}

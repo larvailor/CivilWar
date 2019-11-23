@@ -123,6 +123,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CGame.cpp" />
+    <ClCompile Include="CSerializer.cpp" />
     <ClCompile Include="CwClientSocketTcp.cpp" />
     <ClCompile Include="CwClientSocketUdp.cpp" />
     <ClCompile Include="Network.cpp" />
@@ -130,10 +132,17 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BaseCWException.h" />
+    <ClInclude Include="CGame.h" />
+    <ClInclude Include="CModelsAsDataTypes.h" />
+    <ClInclude Include="CMoveAndFireMsg.h" />
+    <ClInclude Include="CMsg.h" />
+    <ClInclude Include="CMsgTypesFromServer.h" />
+    <ClInclude Include="CMsgTypesToServer.h" />
     <ClInclude Include="Config.h" />
+    <ClInclude Include="CSerializer.h" />
+    <ClInclude Include="CTypes.h" />
     <ClInclude Include="CwClientSocketTcp.h" />
     <ClInclude Include="CwClientSocketUdp.h" />
-    <ClInclude Include="Game.h" />
     <ClInclude Include="Network.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
