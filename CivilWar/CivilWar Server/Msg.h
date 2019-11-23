@@ -44,7 +44,11 @@ protected:
 		}
 	}
 
-	virtual void setAdvancedType(std::vector<char>& msg, char advancedType) = 0;
+	void setAdvancedType(std::vector<char>& msg, char advancedType)
+	{
+		msg.push_back(advancedType);
+	}
+
 	virtual void setMsgData(std::vector<char> &msg, void* CWstruct) = 0;
 
 private:

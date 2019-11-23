@@ -87,6 +87,9 @@
     <ClInclude Include="Game.h">
       <Filter>Header Files\Model</Filter>
     </ClInclude>
+    <ClInclude Include="BattlefieldMsg.h">
+      <Filter>Header Files\Network\Messages</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source Server.cpp">

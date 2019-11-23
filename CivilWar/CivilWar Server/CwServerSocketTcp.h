@@ -15,6 +15,8 @@ public:
 	void doListen();
 	SOCKET acceptConnection();
 
+	int sendMsgToClient(SOCKET clientSocket, char* msg, size_t msgSize, int flags);
+
 private:
 	SOCKET m_socket;
 	SOCKADDR_IN m_socketAddr;

@@ -16,7 +16,7 @@ public:
 	void initAll();
 	void start();
 
-	struct battlefield getBattlefield() const { return m_battlefield; }
+	BattlefieldStruct* getBattlefield() const { return m_battlefield; }
 	Soldier* getGreenSoldier() const { return m_greenSoldier; }
 	Soldier* getBlueSoldier() const { return m_blueSoldier; }
 	std::list<Bullet> getGreenBullets() const { return m_greenBullets; }
@@ -26,7 +26,7 @@ public:
 
 private:
 	// variables
-	struct battlefield m_battlefield;
+	BattlefieldStruct* m_battlefield;
 
 	Soldier* m_greenSoldier;
 	Soldier* m_blueSoldier;

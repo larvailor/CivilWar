@@ -6,6 +6,7 @@
 #include "Soldier.h"
 #include "Bullet.h"
 
+#include "BattlefieldMsg.h"
 #include "SoldierMsg.h"
 
 #include <list>
@@ -19,20 +20,20 @@ public:
 
 
 	// methods
-	void init(struct battlefield bttlfieldStr, Soldier* greenSoldierClass, Soldier* blueSoldierClass);
+	void init(BattlefieldStruct* bttlfieldStr, Soldier* greenSoldierClass, Soldier* blueSoldierClass);
+	BattlefieldMsg* createBattlefieldMsg(BattlefieldStruct* battlefieldStruct);
 	SoldierMsg* createGreenSoldierMsg(Soldier* greenSoldier);
 	SoldierMsg* createBlueSoldierMsg(Soldier* blueSoldier);
 
-	void setBattlefield(struct battlefield bttlfieldStr);
+	void setBattlefield(BattlefieldStruct* bttlfieldStr);
 	void setGreenSoldier(Soldier* greenSoldier);
 	void setBlueSoldier(Soldier* blueSoldier);
 
 private:
 	// variables
-	struct battlefield m_battlefield;
+	BattlefieldStruct m_battlefield;
+	SoldierStruct m_greenSoldier;
+	SoldierStruct m_blueSoldier;
 
-	struct soldier m_greenSoldier;
-	struct soldier m_blueSoldier;
-
-	std::list<struct bullet> m_bullets;
+	std::list<BulletStruct> m_bullets;
 };

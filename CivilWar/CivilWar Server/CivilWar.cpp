@@ -5,8 +5,9 @@
 
 #include "BaseCWServerException.h"
 
-CivilWar::CivilWar()
-	: m_blueSoldier(nullptr),
+CivilWar::CivilWar() :
+	m_battlefield(nullptr),
+	m_blueSoldier(nullptr),
 	m_greenSoldier(nullptr),
 	m_is_running(false)
 {
@@ -34,8 +35,9 @@ void CivilWar::initAll()
 
 void CivilWar::initBattlefield()
 {
-	m_battlefield.width = BATTLEFIELD_WIDTH;
-	m_battlefield.height = BATTLEFIELD_HEIGHT;
+	m_battlefield = new BattlefieldStruct();
+	m_battlefield->width = BATTLEFIELD_WIDTH;
+	m_battlefield->height = BATTLEFIELD_HEIGHT;
 }
 
 

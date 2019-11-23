@@ -2,25 +2,25 @@
 
 #include "Types.h"
 
-struct battlefield {
+typedef struct battlefield {
 	Width width;
 	Height height;
-};
+} BattlefieldStruct;
 
-struct soldier {
+typedef struct soldier {
 	Point center;
 	Radius radius;
 	Health health;
-};
+} SoldierStruct;
 
-struct bullet {
+typedef struct bullet {
 	Point center;
 	Radius radius;
 	DirectionX dirX;
 	DirectionY dirY;
 	Speed speed;
-};
+} BulletStruct;
 
-constexpr auto BATTLEFIELD_STRUCT_SIZE = static_cast<int>(sizeof(struct battlefield));
-constexpr auto SOLDIER_STRUCT_SIZE     = static_cast<int>(sizeof(struct soldier));
-constexpr auto BULLET_STRUCT_SIZE      = static_cast<int>(sizeof(struct bullet));
+constexpr auto BATTLEFIELD_STRUCT_SIZE = static_cast<int>(sizeof(BattlefieldStruct));
+constexpr auto SOLDIER_STRUCT_SIZE = static_cast<int>(sizeof(SoldierStruct));
+constexpr auto BULLET_STRUCT_SIZE = static_cast<int>(sizeof(BulletStruct));

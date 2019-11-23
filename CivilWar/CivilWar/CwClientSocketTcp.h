@@ -1,8 +1,6 @@
 #pragma once
 #pragma warning(disable: 4996)
 
-#include "BaseCWException.h"
-
 #include <WinSock2.h>
 
 class CwClientSocketTcp

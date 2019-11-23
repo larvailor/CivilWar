@@ -2,6 +2,7 @@
 
 #include "BaseCWServerException.h"
 
+#include <string>
 #include <iostream>
 
 Server::Server() :
@@ -154,52 +155,81 @@ void Server::waitForClients()
 
 
 
-void Server::sendBeforeBattleMsg(SoldierMsg* greenSoldierMsg, SoldierMsg* blueSoldierMsg)
+void Server::sendBeforeBattleMsg(BattlefieldMsg* battlefieldMsg, SoldierMsg* greenSoldierMsg, SoldierMsg* blueSoldierMsg)
 {
-	int iResult = 0;
+	// battlefield
 	try {
-		iResult = sendSoldierMsg(greenSoldierMsg);
+		sendBattlefieldMsg(battlefieldMsg);
 	}
 	catch (BaseCWServerException e) {
 		std::cout << e.getMsg() << std::endl;
 	}
 
-	if (iResult == SOCKET_ERROR) {
-		std::cout << "sendBeforeBattleMsg green soldier send failed wit error: " << WSAGetLastError() << std::endl;
-	}
-	
+	// greeen soldier
 	try {
-		iResult = sendSoldierMsg(blueSoldierMsg);
+		sendSoldierMsg(greenSoldierMsg);
 	}
 	catch (BaseCWServerException e) {
 		std::cout << e.getMsg() << std::endl;
 	}
 
-	if (iResult == SOCKET_ERROR) {
-		std::cout << "sendBeforeBattleMsg blue soldier send failed wit error: " << WSAGetLastError() << std::endl;
+	// blue soldier
+	try {
+		sendSoldierMsg(blueSoldierMsg);
+	}
+	catch (BaseCWServerException e) {
+		std::cout << e.getMsg() << std::endl;
 	}
 }
 
 
 
-int Server::sendSoldierMsg(SoldierMsg* soldierMsg)
+void Server::sendBattlefieldMsg(BattlefieldMsg* battlefieldMsg)
+{
+	std::vector<char> msg = battlefieldMsg->getMsg();
+	delete(battlefieldMsg);
+
+	int bytesSent = 0;
+	std::string errorMsg;
+	// send to green player
+	bytesSent = m_socketTcp->sendMsgToClient(m_greenSoldierSocket, msg.data(), msg.size(), NULL);
+	if (bytesSent == SOCKET_ERROR) {
+		errorMsg += "sendBattlefieldMsg to green player failed with error: " + std::to_string(WSAGetLastError());
+	}
+
+	// send to second player
+	bytesSent = m_socketTcp->sendMsgToClient(m_blueSoldierSocket, msg.data(), msg.size(), NULL);
+	if (bytesSent == SOCKET_ERROR) {
+		errorMsg += "sendBattlefieldMsg msg to blue player failed with error: " + std::to_string(WSAGetLastError());
+	}
+
+	if (errorMsg.length() != 0) {
+		throw BaseCWServerException(errorMsg);
+	}
+}
+
+
+
+void Server::sendSoldierMsg(SoldierMsg* soldierMsg)
 {
 	std::vector<char> msg = soldierMsg->getMsg();
 	delete(soldierMsg);
 
-	SOCKET clientSocket;
-	switch (msg[1])
-	{
-	case GREEN_SOLDIER:
-		clientSocket = m_greenSoldierSocket;
-		break;
-	case BLUE_SOLDIER:
-		clientSocket = m_blueSoldierSocket;
-		break;
-	default:
-		std::string errorMsg = "sendSoldierMsg incorrect advanced type";
-		throw BaseCWServerException(errorMsg);
+	int bytesSent = 0;
+	std::string errorMsg;
+	// send to green player
+	bytesSent = m_socketTcp->sendMsgToClient(m_greenSoldierSocket, msg.data(), msg.size(), NULL);
+	if (bytesSent == SOCKET_ERROR) {
+		errorMsg += "sendSoldierMsg msg to green player failed with error: " + std::to_string(WSAGetLastError());
 	}
 
-	return send(clientSocket, msg.data(), msg.size(), NULL);
+	// send to second player
+	bytesSent = m_socketTcp->sendMsgToClient(m_blueSoldierSocket, msg.data(), msg.size(), NULL);
+	if (bytesSent == SOCKET_ERROR) {
+		errorMsg += "sendSoldierMsg msg to blue player failed with error: " + std::to_string(WSAGetLastError());
+	}
+
+	if (errorMsg.length() != 0) {
+		throw BaseCWServerException(errorMsg);
+	}
 }

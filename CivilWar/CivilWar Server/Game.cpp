@@ -71,6 +71,7 @@ void Game::handleBeforeBattle()
 	// send start msg to both clients
 	// sleep for 3 sec
 	m_server->sendBeforeBattleMsg(
+		m_serializer->createBattlefieldMsg(m_cw->getBattlefield()),
 		m_serializer->createGreenSoldierMsg(m_cw->getGreenSoldier()),
 		m_serializer->createBlueSoldierMsg(m_cw->getBlueSoldier())
 	);

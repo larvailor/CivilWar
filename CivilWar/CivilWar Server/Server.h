@@ -3,6 +3,7 @@
 #include "CwServerSocketTcp.h"
 #include "CwServerSocketUdp.h"
 
+#include "BattlefieldMsg.h"
 #include "SoldierMsg.h"
 
 class Server
@@ -15,7 +16,7 @@ public:
 
 	void waitForClients();
 
-	void sendBeforeBattleMsg(SoldierMsg* greenSoldierMsg, SoldierMsg* blueSoldierMsg);
+	void sendBeforeBattleMsg(BattlefieldMsg* battlefieldMsg, SoldierMsg* greenSoldierMsg, SoldierMsg* blueSoldierMsg);
 
 private:
 	// variables
@@ -34,5 +35,6 @@ private:
 	void bindSockets();
 	void doListen();
 
-	int sendSoldierMsg(SoldierMsg* soldierMsg);
+	void sendBattlefieldMsg(BattlefieldMsg* battlefieldMsg);
+	void sendSoldierMsg(SoldierMsg* soldierMsg);
 };

@@ -4,14 +4,13 @@
 #include "MsgTypes.h"
 #include "ModelsAsDataTypes.h"
 
-class SoldierMsg : public Msg
+class BattlefieldMsg : public Msg
 {
 public:
-	SoldierMsg(char soldierColor) : 
-		Msg(SOLDIER_MSG_TYPE, 1, SOLDIER_STRUCT_SIZE),
-		m_soldierColor(soldierColor)
-	{ 
-	
+	BattlefieldMsg() :
+		Msg(BATTLEFIELD_MSG_TYPE, 1, BATTLEFIELD_STRUCT_SIZE)
+	{
+
 	}
 
 
@@ -30,7 +29,7 @@ public:
 	{
 		try {
 			setMsgType(m_msg);
-			setAdvancedType(m_msg, m_soldierColor);
+			setAdvancedType(m_msg, -1);
 			setMsgNObjects(m_msg);
 			setMsgStructSize(m_msg);
 			setMsgData(m_msg, CWstruct);
@@ -40,18 +39,14 @@ public:
 		}
 	}
 
+
 private:
-	// variables
-	char m_soldierColor;
-
-
-	// methods
-	void setMsgData(std::vector<char> &msg, void* CWstruct) final
+	void setMsgData(std::vector<char>& msg, void* CWstruct) final
 	{
-		auto soldr = static_cast<SoldierStruct*>(CWstruct);
+		auto battlefield = static_cast<BattlefieldStruct*>(CWstruct);
 
 		char* buffer = new char[m_structSize];
-		memcpy(buffer, &(*soldr), m_structSize);
+		memcpy(buffer, &(*battlefield), m_structSize);
 		for (auto i = 0; i < m_structSize; i++) {
 			msg.push_back(buffer[i]);
 		}

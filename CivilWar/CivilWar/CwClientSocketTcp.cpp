@@ -1,5 +1,7 @@
 #include "CwClientSocketTcp.h"
 
+#include "BaseCWException.h"
+
 CwClientSocketTcp::CwClientSocketTcp()
 {
 	m_socket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
@@ -42,4 +44,10 @@ void CwClientSocketTcp::connectToCwServer(const char* ip, int port)
 void CwClientSocketTcp::recvMsgFromServer(char* buffer, int bufferSize, int &bytesReceived)
 {
 	bytesReceived = recv(m_socket, buffer, bufferSize, NULL);
+
+	// send confirm to server
+	char confirmBufferSize = 1;
+	char* confirmBuffer = new char[confirmBufferSize];
+	confirmBuffer[0] = 1;
+	send(m_socket, confirmBuffer, confirmBufferSize, NULL);
 }
