@@ -233,3 +233,25 @@ void Server::sendSoldierMsg(SoldierMsg* soldierMsg)
 		throw BaseCWServerException(errorMsg);
 	}
 }
+
+
+
+void Server::sendGameStateMsg(GameStateMsg* gameStateMsg)
+{
+	std::vector<char> msg = gameStateMsg->getMsg();
+	delete(gameStateMsg);
+
+	int bytesSent = 0;
+	std::string errorMsg;
+	// send to green player
+	bytesSent = m_socketTcp->sendMsgToClient(m_greenSoldierSocket, msg.data(), msg.size(), NULL);
+	if (bytesSent == SOCKET_ERROR) {
+		errorMsg += "sendGameStateMsg msg to green player failed with error: " + std::to_string(WSAGetLastError());
+	}
+
+	// send to blue player
+	bytesSent = m_socketTcp->sendMsgToClient(m_blueSoldierSocket, msg.data(), msg.size(), NULL);
+	if (bytesSent == SOCKET_ERROR) {
+		errorMsg += "sendGameStateMsg msg to blue player failed with error: " + std::to_string(WSAGetLastError());
+	}
+}

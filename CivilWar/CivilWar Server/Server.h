@@ -5,6 +5,7 @@
 
 #include "BattlefieldMsg.h"
 #include "SoldierMsg.h"
+#include "GameStateMsg.h"
 
 class Server
 {
@@ -17,6 +18,7 @@ public:
 	void waitForClients();
 
 	void sendBeforeBattleMsg(BattlefieldMsg* battlefieldMsg, SoldierMsg* greenSoldierMsg, SoldierMsg* blueSoldierMsg);
+	void sendGameStateMsg(GameStateMsg* gameStateMsg);
 
 private:
 	// variables
