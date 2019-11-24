@@ -142,6 +142,8 @@
     <ClInclude Include="CwServerSocketTcp.h" />
     <ClInclude Include="CwServerSocketUdp.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="GameState.h" />
+    <ClInclude Include="GameStateMsg.h" />
     <ClInclude Include="ModelsAsDataTypes.h" />
     <ClInclude Include="Msg.h" />
     <ClInclude Include="MsgTypes.h" />

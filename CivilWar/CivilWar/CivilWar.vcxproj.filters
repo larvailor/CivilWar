@@ -101,5 +101,8 @@
     <ClInclude Include="CMoveAndFireMsg.h">
       <Filter>Header Files\Network\Messages</Filter>
     </ClInclude>
+    <ClInclude Include="CGameState.h">
+      <Filter>Header Files\Types</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
