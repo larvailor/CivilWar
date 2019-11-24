@@ -1,7 +1,11 @@
 #include "Serializer.h"
 
-Serializer::Serializer()
-= default;
+Serializer::Serializer() :
+	m_battlefield({ 0 }),
+	m_greenSoldier({ 0 }),
+	m_blueSoldier({ 0 })
+{
+}
 
 
 
@@ -74,4 +78,13 @@ SoldierMsg* Serializer::createBlueSoldierMsg(Soldier* blueSoldier)
 	SoldierMsg* blueSldrMsg = new SoldierMsg(BLUE_SOLDIER);
 	blueSldrMsg->create(&m_blueSoldier);
 	return blueSldrMsg;
+}
+
+
+
+GameStateMsg* Serializer::createGameStateMsg(char gameState, char advancedInfo)
+{
+	GameStateMsg* gameStateMsg = new GameStateMsg(gameState, advancedInfo);
+	gameStateMsg->create(nullptr);
+	return gameStateMsg;
 }
