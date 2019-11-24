@@ -8,18 +8,8 @@
 
 #include <iostream>
 
-
-//#include "SoldierMsg.h"
 int main()
 {
-	//struct soldier greenSoldier;
-	//Point p = { 123, 321 };
-	//greenSoldier.center = p;
-	//greenSoldier.health = 3;
-	//greenSoldier.radius = 4;
-	//SoldierMsg* msg = new SoldierMsg();
-	//std::vector<char> m = msg->create(&greenSoldier);
-
 	Server* server = new Server();
 
 	// gameloop
@@ -30,9 +20,6 @@ int main()
 		game->waitForClients();
 		game->start();
 		while (game->isRunning()) {
-			// get
-			// calculate
-			// send 
 			game->handleState();
 		}
 	}
