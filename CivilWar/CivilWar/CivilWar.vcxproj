@@ -133,6 +133,7 @@
   <ItemGroup>
     <ClInclude Include="BaseCWException.h" />
     <ClInclude Include="CGame.h" />
+    <ClInclude Include="CGameState.h" />
     <ClInclude Include="CModelsAsDataTypes.h" />
     <ClInclude Include="CMoveAndFireMsg.h" />
     <ClInclude Include="CMsg.h" />
