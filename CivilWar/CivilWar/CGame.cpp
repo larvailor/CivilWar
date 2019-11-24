@@ -3,7 +3,9 @@
 #include <vector>
 
 CGame::CGame() :
-	m_isRunning(false)
+	m_isRunning(false),
+	m_gameState(NULL),
+	m_advancedGameState(NULL)
 {
 	m_network = new Network();
 	m_serializer = new CSerializer();
@@ -42,6 +44,9 @@ void CGame::start()
 
 void CGame::recvDataAndUpdate()
 {
+	std::vector<char> gameStateMsg = m_network->recvMsg();
+	m_serializer->translateGameStateMsg(gameStateMsg, m_gameState, m_advancedGameState);
+
 	std::vector<char> battlefieldMsg = m_network->recvMsg();
 	m_serializer->translateMsg(battlefieldMsg);
 

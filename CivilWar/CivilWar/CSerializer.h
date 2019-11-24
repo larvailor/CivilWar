@@ -11,7 +11,7 @@ public:
 	~CSerializer();
 
 	void translateMsg(std::vector<char> msg);
-	void translateGameStateMsg(std::vector<char> msg, char& gameState, char& advancedInfo);
+	void translateGameStateMsg(std::vector<char> msg, char& gameState, char& advancedGameState);
 
 	void setBattlefield(BattlefieldStruct* battlefield);
 	void setGreenSoldier(SoldierStruct* soldier);

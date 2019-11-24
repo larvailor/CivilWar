@@ -3,7 +3,6 @@
 #include "Network.h"
 #include "CSerializer.h"
 
-
 class CGame
 {
 public:
@@ -23,4 +22,7 @@ private:
 	CSerializer* m_serializer;
 
 	bool m_isRunning;
+
+	char m_gameState;
+	char m_advancedGameState;
 };
