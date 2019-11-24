@@ -2,12 +2,14 @@
 
 #include "Types.h"
 #include "ModelsAsDataTypes.h"
+#include "GameState.h"
 
 #include "Soldier.h"
 #include "Bullet.h"
 
 #include "BattlefieldMsg.h"
 #include "SoldierMsg.h"
+#include "GameStateMsg.h"
 
 #include <list>
 
@@ -24,6 +26,7 @@ public:
 	BattlefieldMsg* createBattlefieldMsg(BattlefieldStruct* battlefieldStruct);
 	SoldierMsg* createGreenSoldierMsg(Soldier* greenSoldier);
 	SoldierMsg* createBlueSoldierMsg(Soldier* blueSoldier);
+	GameStateMsg* createGameStateMsg(char gameState, char advancedInfo = NULL);
 
 	void setBattlefield(BattlefieldStruct* bttlfieldStr);
 	void setGreenSoldier(Soldier* greenSoldier);
