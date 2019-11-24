@@ -81,4 +81,6 @@ void Game::handleBeforeBattle()
 		m_serializer->createGreenSoldierMsg(m_cw->getGreenSoldier()),
 		m_serializer->createBlueSoldierMsg(m_cw->getBlueSoldier())
 	);
+
+	m_gameState = BATTLE_STATE;
 }
