@@ -97,27 +97,10 @@ void CSerializer::translateBulletsMsg(std::vector<char> msg)
 
 
 
-void CSerializer::translateGameStateMsg(std::vector<char> msg, char &gameState, char &advancedInfo)
+void CSerializer::translateGameStateMsg(std::vector<char> msg, char &gameState, char & advancedGameState)
 {
-	switch (msg[1])	{
-	case BEFORE_BATTLE_STATE:
-		gameState = BEFORE_BATTLE_STATE;
-		break;
-	case BATTLE_STATE:
-		gameState = BATTLE_STATE;
-		break;
-	case AFTER_BATTLE_STATE:
-		gameState = AFTER_BATTLE_STATE;
-		switch (msg[2]) {
-		case GREEN_WIN:
-			advancedInfo = GREEN_WIN;
-			break;
-		case BLUE_WIN:
-			advancedInfo = BLUE_WIN;
-			break;
-		}
-		break;
-	}
+	gameState = msg[1];
+	advancedGameState = msg[2];
 }
 
 
