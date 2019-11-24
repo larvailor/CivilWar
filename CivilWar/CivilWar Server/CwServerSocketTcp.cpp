@@ -69,12 +69,19 @@ SOCKET CwServerSocketTcp::acceptConnection()
 
 int CwServerSocketTcp::sendMsgToClient(SOCKET clientSocket, char* msg, size_t msgSize, int flags)
 {
-	int bytesSent = send(clientSocket, msg, msgSize, flags);
-	
-	// wait while client confirm msg
+	int bytesSent;
+	int bytesReceived;
 	char confirmBufferSize = 1;
 	char* confirmBuffer = new char[confirmBufferSize];
-	recv(clientSocket, confirmBuffer, confirmBufferSize, NULL);
+	for (int tries = 3; tries != 0; tries--) {
+		bytesSent = send(clientSocket, msg, msgSize, flags);
 
+		// wait while client confirm msg
+		bytesReceived = recv(clientSocket, confirmBuffer, confirmBufferSize, NULL); 
+		if (bytesReceived != SOCKET_ERROR) {
+			break;
+		}
+	}
+	
 	return bytesSent;
 }
