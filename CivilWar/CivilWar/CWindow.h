@@ -11,7 +11,12 @@
 class CWindow : public BaseWindow<CWindow>
 {
 public:
-	CWindow();
+	CWindow(HINSTANCE hInstance, int nCmdShow) :
+		BaseWindow(hInstance, nCmdShow)
+	{
+
+	}
+
 	~CWindow();
 
 	PCWSTR  ClassName() const { return L"CivilWar"; }

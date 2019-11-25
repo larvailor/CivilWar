@@ -89,7 +89,7 @@
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -127,11 +127,13 @@
     <ClCompile Include="CSerializer.cpp" />
     <ClCompile Include="CwClientSocketTcp.cpp" />
     <ClCompile Include="CwClientSocketUdp.cpp" />
+    <ClCompile Include="CWindow.cpp" />
     <ClCompile Include="Network.cpp" />
     <ClCompile Include="Source Client.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BaseCWException.h" />
+    <ClInclude Include="BaseWindow.h" />
     <ClInclude Include="CGame.h" />
     <ClInclude Include="CGameState.h" />
     <ClInclude Include="CModelsAsDataTypes.h" />
@@ -144,6 +146,7 @@
     <ClInclude Include="CTypes.h" />
     <ClInclude Include="CwClientSocketTcp.h" />
     <ClInclude Include="CwClientSocketUdp.h" />
+    <ClInclude Include="CWindow.h" />
     <ClInclude Include="Network.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

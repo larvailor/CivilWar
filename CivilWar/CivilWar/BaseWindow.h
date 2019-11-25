@@ -10,6 +10,13 @@ template <class DERIVED_TYPE>
 class BaseWindow
 {
 public:
+	BaseWindow(HINSTANCE hInstance, int nCmdShow) :
+		m_hwnd(NULL),
+		m_hInstance(hInstance),
+		m_nCmdShow(nCmdShow)
+	{ 
+
+	};
 
 	static LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 	{
@@ -34,13 +41,12 @@ public:
 		}
 	}
 
-	BaseWindow() : m_hwnd(NULL) { };
 
 	BOOL create(
 		PCWSTR lpWindowName,
 		DWORD  dwStyle,
-		int    nWidth = CW_USEDEFAULT,
-		int    nHeight = CW_USEDEFAULT,
+		int    nWidth,
+		int    nHeight,
 		DWORD  dwExStyle = 0,
 		int    x = CW_USEDEFAULT,
 		int    y = CW_USEDEFAULT,
@@ -53,8 +59,11 @@ public:
 		wc.lpfnWndProc = DERIVED_TYPE::WindowProc;
 		wc.hInstance = GetModuleHandle(NULL);
 		wc.lpszClassName = ClassName();
+		wc.hbrBackground = CreateSolidBrush(RGB(240, 240, 245));
 
-		RegisterClass(&wc);
+		if (!RegisterClass(&wc)) {
+			return FALSE;
+		}
 
 		m_hwnd = CreateWindowEx(
 			dwExStyle, ClassName(), lpWindowName, dwStyle,
@@ -65,9 +74,8 @@ public:
 		return m_hwnd ? TRUE : FALSE;
 	}
 
-	HWND Window() const {
-		return m_hwnd;
-	}
+	HWND getWindow() const { return m_hwnd; }
+	int getNCmdShow() const { return m_nCmdShow; }
 
 protected:
 
@@ -75,4 +83,6 @@ protected:
 	virtual LRESULT HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam) = 0;
 
 	HWND m_hwnd;
+	HINSTANCE m_hInstance;
+	int m_nCmdShow;
 };

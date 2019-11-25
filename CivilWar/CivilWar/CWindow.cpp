@@ -2,11 +2,6 @@
 
 #include "BaseCWException.h"
 
-CWindow::CWindow()
-= default;
-
-
-
 CWindow::~CWindow()
 = default;
 
