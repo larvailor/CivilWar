@@ -12,5 +12,5 @@ typedef struct point {
 	int y;
 } Point;
 
-enum class DirectionX { LEFT, RIGHT, NONE_X };
-enum class DirectionY { UP, DOWN, NONE_Y };
+enum DirectionX { LEFT, RIGHT, NONE_X };
+enum DirectionY { UP, DOWN, NONE_Y };

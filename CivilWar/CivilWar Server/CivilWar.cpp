@@ -7,6 +7,8 @@
 
 #include "BaseCWServerException.h"
 
+#include <cmath>
+
 CivilWar::CivilWar() :
 	m_battlefield(nullptr),
 	m_blueSoldier(nullptr),
@@ -67,7 +69,6 @@ void CivilWar::initBlueSoldier()
 
 
 
-
 void CivilWar::start()
 {
 	m_isRunning = true;
@@ -79,6 +80,9 @@ void CivilWar::start()
 void CivilWar::translateAndProcessGreenPlayerMsg(std::vector<char> msg)
 {
 	switch (msg[0]) {
+	case MOVE_MSG:
+		handleGreenMoveMsg(msg);
+		break;
 	case MOVE_AND_FIRE_MSG:
 		handleGreenMoveAndFireMsg(msg);
 		break;
@@ -86,28 +90,60 @@ void CivilWar::translateAndProcessGreenPlayerMsg(std::vector<char> msg)
 		m_isRunning = false;
 		break;
 	}
-}
-
-
-
-void CivilWar::handleGreenMoveAndFireMsg(std::vector<char> msg)
-{
-	handleSoldierMove(m_greenSoldier, msg[1]);
-	//createBullet();
-	// TODO: handle fire
+	moveBullets(m_greenBullets);
 }
 
 
 
 void CivilWar::translateAndProcessBluePlayerMsg(std::vector<char> msg)
 {
-	handleSoldierMove(m_blueSoldier, msg[1]);
-	// TODO: handle fire
+	switch (msg[0]) {
+	case MOVE_MSG:
+		handleBlueMoveMsg(msg);
+		break;
+	case MOVE_AND_FIRE_MSG:
+		handleBlueMoveAndFireMsg(msg);
+		break;
+	case DISCONNECT_MSG:
+		m_isRunning = false;
+		break;
+	}
+	moveBullets(m_blueBullets);
 }
 
 
 
-void CivilWar::handleSoldierMove(Soldier* soldier, char pressedKey)
+void CivilWar::handleGreenMoveMsg(std::vector<char> msg)
+{
+	moveSoldier(m_greenSoldier, msg[1]);
+}
+
+
+
+void CivilWar::handleGreenMoveAndFireMsg(std::vector<char> msg)
+{
+	moveSoldier(m_greenSoldier, msg[1]);
+	addBullet(m_greenSoldier, m_greenBullets, msg);
+}
+
+
+
+void CivilWar::handleBlueMoveMsg(std::vector<char> msg)
+{
+	moveSoldier(m_blueSoldier, msg[1]);
+}
+
+
+
+void CivilWar::handleBlueMoveAndFireMsg(std::vector<char> msg)
+{
+	moveSoldier(m_blueSoldier, msg[1]);
+	addBullet(m_blueSoldier, m_blueBullets, msg);
+}
+
+
+
+void CivilWar::moveSoldier(Soldier* soldier, char pressedKey)
 {
 	int res;
 	switch (pressedKey) {
@@ -138,3 +174,101 @@ void CivilWar::handleSoldierMove(Soldier* soldier, char pressedKey)
 	}
 }
 
+
+
+void CivilWar::moveBullets(std::vector<Bullet*> bullets)
+{
+	// TODO: bullets autside battlefield hould be deleted
+	int res = 0;
+	for (int i = 0; i < bullets.size(); i++) {
+		// process X
+		res = bullets[i]->getX();
+		switch (bullets[i]->getDirectionX()) {
+		case LEFT:
+			res = bullets[i]->getX() - bullets[i]->getSpeedX();
+			if (res > 0) {
+				bullets[i]->setX(res);
+			}
+			break;
+		case RIGHT:
+			res = bullets[i]->getX() + bullets[i]->getSpeedX();
+			if (res < m_battlefield->width) {
+				bullets[i]->setX(res);
+			}
+			break;
+		case NONE_X:
+			break;
+		}
+
+		// process Y
+		res = bullets[i]->getY();
+		switch (bullets[i]->getDirectionY()) {
+		case UP:
+			res = bullets[i]->getY() - bullets[i]->getSpeedY();
+			if (res > 0) {
+				bullets[i]->setY(res);
+			}
+			break;
+		case DOWN:
+			res = bullets[i]->getY() + bullets[i]->getSpeedY();
+			if (res < m_battlefield->height) {
+				bullets[i]->setY(res);
+			}
+			break;
+		case NONE_X:
+			break;
+		}
+	}
+}
+
+
+
+void CivilWar::addBullet(Soldier* soldier, std::vector<Bullet*> bullets, std::vector<char> msg)
+{
+	Point center;
+	Radius radius = BULLET_RADIUS;
+	DirectionX dirX;
+	DirectionY dirY;
+	Speed speedX;
+	Speed speedY;
+
+	center.x = strToInt(msg[2], msg[3], msg[4], msg[5]);
+	center.y = strToInt(msg[6], msg[7], msg[8], msg[9]);
+
+	int cathetX = center.x - soldier->getX();
+	if (cathetX < 0) {
+		dirX = LEFT;
+	}
+	else {
+		dirX = RIGHT;
+	}
+	cathetX = abs(cathetX);
+
+	int cathetY = center.y - soldier->getY();
+	if (cathetY < 0) {
+		dirY = UP;
+	}
+	else {
+		dirY = DOWN;
+	}
+	cathetY = abs(cathetY);
+
+	int hypotenuse = static_cast<int>(sqrt(cathetX * cathetX + cathetY * cathetY));
+
+	speedX = static_cast<int>(BULLET_SPEED * cathetX / hypotenuse);
+	speedY = static_cast<int>(BULLET_SPEED * cathetY / hypotenuse);
+
+	Bullet* bullet = new Bullet(center, radius, dirX, dirY, speedX, speedY);
+	bullets.push_back(bullet);
+}
+
+
+
+int CivilWar::strToInt(char thousands, char hundreds, char tens, char units)
+{
+	int res = static_cast<int>(thousands) * 1000;
+	res += static_cast<int>(hundreds) * 100;
+	res += static_cast<int>(tens) * 10;
+	res += static_cast<int>(units);
+	return res;
+}
