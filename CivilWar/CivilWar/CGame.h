@@ -19,7 +19,6 @@ public:
 
 	void recvDataAndUpdate();
 	void handleState();
-	void draw();
 
 private:
 	// variables
@@ -33,11 +32,13 @@ private:
 	char m_advancedGameState;
 
 	std::thread* m_wndThr;
+	std::thread* m_drawThr;
 
 
 
 	// methods
 	void windowThread();
+	void drawThread();
 	void handleBeforeBattleState();
 	void handleAfterBattleState();
 };

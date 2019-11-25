@@ -13,7 +13,8 @@ CGame::CGame() :
 	m_isRunning(false),
 	m_gameState(NULL),
 	m_advancedGameState(NULL),
-	m_wndThr(nullptr)
+	m_wndThr(nullptr),
+	m_drawThr(nullptr)
 {
 	m_network = new Network();
 	m_serializer = new CSerializer();
@@ -87,6 +88,7 @@ void CGame::handleState()
 void CGame::handleBeforeBattleState()
 {
 	m_wndThr = new std::thread(&CGame::windowThread, this);
+	m_drawThr = new std::thread(&CGame::drawThread, this);
 }
 
 
@@ -94,6 +96,7 @@ void CGame::handleBeforeBattleState()
 void CGame::handleAfterBattleState()
 {
 	m_wndThr->join();
+	m_drawThr->join();
 	m_isRunning = false;
 }
 
@@ -127,7 +130,10 @@ void CGame::windowThread()
 
 
 
-void CGame::draw()
+void CGame::drawThread()
 {
-	InvalidateRect(m_window->getWindow(), NULL, TRUE);
+	while (m_isRunning) {
+		InvalidateRect(m_window->getWindow(), NULL, TRUE);
+		std::this_thread::sleep_for(std::chrono::milliseconds(50));
+	}
 }
