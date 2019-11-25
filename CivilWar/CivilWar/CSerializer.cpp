@@ -175,9 +175,9 @@ SoldierStruct* CSerializer::getBlueSoldierStruct()
 	std::lock_guard<std::mutex> lock(mutex);
 
 	SoldierStruct* newBlueSldrdStr = new SoldierStruct();
-	newBlueSldrdStr->center = m_greenSoldier.center;
-	newBlueSldrdStr->health = m_greenSoldier.health;
-	newBlueSldrdStr->radius = m_greenSoldier.radius;
+	newBlueSldrdStr->center = m_blueSoldier.center;
+	newBlueSldrdStr->health = m_blueSoldier.health;
+	newBlueSldrdStr->radius = m_blueSoldier.radius;
 
 	return newBlueSldrdStr;
 }
