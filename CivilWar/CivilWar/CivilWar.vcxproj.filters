@@ -107,9 +107,6 @@
     <ClInclude Include="CSerializer.h">
       <Filter>Header Files\Serialize</Filter>
     </ClInclude>
-    <ClInclude Include="CMsg.h">
-      <Filter>Header Files\Network\Messages</Filter>
-    </ClInclude>
     <ClInclude Include="CMoveAndFireMsg.h">
       <Filter>Header Files\Network\Messages</Filter>
     </ClInclude>

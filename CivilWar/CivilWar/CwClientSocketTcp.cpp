@@ -51,3 +51,24 @@ void CwClientSocketTcp::recvMsgFromServer(char* buffer, int bufferSize, int &byt
 	confirmBuffer[0] = 1;
 	send(m_socket, confirmBuffer, confirmBufferSize, NULL);
 }
+
+
+
+int CwClientSocketTcp::sendMsgToServer(char* msg, size_t msgSize, int flags)
+{
+	int bytesSent;
+	int bytesReceived;
+	char confirmBufferSize = 1;
+	char* confirmBuffer = new char[confirmBufferSize];
+	for (int tries = 3; tries != 0; tries--) {
+		bytesSent = send(m_socket, msg, msgSize, flags);
+
+		// wait while server confirm msg
+		bytesReceived = recv(m_socket, confirmBuffer, confirmBufferSize, NULL);
+		if (bytesReceived != SOCKET_ERROR) {
+			break;
+		}
+	}
+
+	return bytesSent;
+}

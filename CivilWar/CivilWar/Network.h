@@ -4,6 +4,8 @@
 
 #include "CwClientSocketTcp.h"
 
+#include "CMoveAndFireMsg.h"
+
 #include <WinSock2.h>
 #include <list>
 #include <vector>
@@ -16,6 +18,7 @@ public:
 
 	void connectToCWServer(const char* ip, int port);
 	std::vector<char> recvMsg();
+	void sendClientData(CMoveAndFireMsg* moveAndFireMsg);
 
 private:
 	// variables

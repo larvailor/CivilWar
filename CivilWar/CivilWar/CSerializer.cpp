@@ -181,3 +181,12 @@ SoldierStruct* CSerializer::getBlueSoldierStruct()
 
 	return newBlueSldrdStr;
 }
+
+
+
+CMoveAndFireMsg* CSerializer::createMoveAndFireMsg(char pressedKey, int mouseX, int mouseY)
+{
+	CMoveAndFireMsg* moveAndFireMsg = new CMoveAndFireMsg();
+	moveAndFireMsg->create(pressedKey, mouseX, mouseY);
+	return moveAndFireMsg;
+}
