@@ -1,15 +1,15 @@
 #pragma once
 
-typedef float Radius;
-typedef float Speed;
-typedef float Width;
-typedef float Height;
+typedef int Radius;
+typedef int Speed;
+typedef int Width;
+typedef int Height;
 
 typedef short Health;
 
 typedef struct point {
-	float x;
-	float y;
+	int x;
+	int y;
 } Point;
 
 enum class DirectionX { LEFT, RIGHT, NONE_X };

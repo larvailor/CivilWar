@@ -20,11 +20,25 @@ void Painter::drawSoldiers(HWND hWnd, SoldierStruct* greenSoldier, SoldierStruct
 	hdc = BeginPaint(hWnd, &ps);
 
 	// green soldier
-	drawCircle(hWnd, hdc, greenSoldier->center.x, greenSoldier->center.y, greenSoldier->radius, m_greenBrush);
+	drawCircle(
+		hWnd,
+		hdc,
+		static_cast<int>(greenSoldier->center.x),
+		static_cast<int>(greenSoldier->center.y),
+		static_cast<int>(greenSoldier->radius),
+		m_greenBrush
+	);
 	delete(greenSoldier);
 
 	// blue soldier
-	drawCircle(hWnd, hdc, blueSoldier->center.x, blueSoldier->center.y, blueSoldier->radius, m_blueBrush);
+	drawCircle(
+		hWnd,
+		hdc,
+		static_cast<int>(blueSoldier->center.x),
+		static_cast<int>(blueSoldier->center.y),
+		static_cast<int>(blueSoldier->radius),
+		m_blueBrush
+	);
 	delete(blueSoldier);
 
 	EndPaint(hWnd, &ps);

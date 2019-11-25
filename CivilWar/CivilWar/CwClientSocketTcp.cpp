@@ -15,11 +15,7 @@ CwClientSocketTcp::CwClientSocketTcp()
 
 CwClientSocketTcp::~CwClientSocketTcp()
 {
-	int iResult = closesocket(m_socket);
-	if (iResult == SOCKET_ERROR) {
-		std::string errorMsg = "CwClientSocketTcp.closesocket failed with error: " + std::to_string(WSAGetLastError());
-		throw BaseCWException(errorMsg);
-	}
+	closesocket(m_socket);
 }
 
 
@@ -61,7 +57,7 @@ int CwClientSocketTcp::sendMsgToServer(char* msg, size_t msgSize, int flags)
 	char confirmBufferSize = 1;
 	char* confirmBuffer = new char[confirmBufferSize];
 	for (int tries = 3; tries != 0; tries--) {
-		bytesSent = send(m_socket, msg, msgSize, flags);
+		bytesSent = send(m_socket, msg, static_cast<int>(msgSize), flags);
 
 		// wait while server confirm msg
 		bytesReceived = recv(m_socket, confirmBuffer, confirmBufferSize, NULL);
