@@ -57,9 +57,36 @@ void CGame::recvDataAndUpdate()
 	std::vector<char> gameStateMsg = m_network->recvMsg();
 	m_serializer->translateGameStateMsg(gameStateMsg, m_gameState, m_advancedGameState);
 
+	switch (m_gameState) {
+	case BEFORE_BATTLE_STATE:
+		recvBeforeBattleMsg();
+		break;
+	case BATTLE_STATE:
+		recvBattleMsg();
+		break;
+	case AFTER_BATTLE_STATE:
+		break;
+	}
+}
+
+
+
+void CGame::recvBeforeBattleMsg()
+{
 	std::vector<char> battlefieldMsg = m_network->recvMsg();
 	m_serializer->translateMsg(battlefieldMsg);
 
+	std::vector<char> greenSoldierMsg = m_network->recvMsg();
+	m_serializer->translateMsg(greenSoldierMsg);
+
+	std::vector<char> blueSoldierMsg = m_network->recvMsg();
+	m_serializer->translateMsg(blueSoldierMsg);
+}
+
+
+
+void CGame::recvBattleMsg()
+{
 	std::vector<char> greenSoldierMsg = m_network->recvMsg();
 	m_serializer->translateMsg(greenSoldierMsg);
 
@@ -84,6 +111,7 @@ void CGame::handleState()
 		handleBeforeBattleState();
 		break;
 	case BATTLE_STATE:
+		handleBattleState();
 		break;
 	case AFTER_BATTLE_STATE:
 		handleAfterBattleState();
@@ -97,6 +125,13 @@ void CGame::handleBeforeBattleState()
 {
 	m_wndThr = new std::thread(&CGame::windowThread, this);
 	m_drawThr = new std::thread(&CGame::drawThread, this);
+}
+
+
+
+void CGame::handleBattleState()
+{
+
 }
 
 

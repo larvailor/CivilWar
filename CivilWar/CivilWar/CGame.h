@@ -40,6 +40,11 @@ private:
 	// methods
 	void windowThread();
 	void drawThread();
+
+	void recvBeforeBattleMsg();
+	void recvBattleMsg();
+
 	void handleBeforeBattleState();
+	void handleBattleState();
 	void handleAfterBattleState();
 };

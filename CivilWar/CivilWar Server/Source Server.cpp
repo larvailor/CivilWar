@@ -21,6 +21,7 @@ int main()
 		game->start();
 		while (game->isRunning()) {
 			game->handleState();
+			game->recvMsgsAndProcess();
 		}
 	}
 	catch (BaseCWServerException e) {

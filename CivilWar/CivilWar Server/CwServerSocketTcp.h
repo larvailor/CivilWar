@@ -16,6 +16,7 @@ public:
 	SOCKET acceptConnection();
 
 	int sendMsgToClient(SOCKET clientSocket, char* msg, size_t msgSize, int flags);
+	void recvMsgFromClient(SOCKET clientSocket, char* buffer, int bufferSize, int& bytesReceived);
 
 private:
 	SOCKET m_socket;

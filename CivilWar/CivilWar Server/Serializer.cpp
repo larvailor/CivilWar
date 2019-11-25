@@ -1,5 +1,7 @@
 #include "Serializer.h"
 
+#include <mutex>
+
 Serializer::Serializer() :
 	m_battlefield({ 0 }),
 	m_greenSoldier({ 0 }),
@@ -25,6 +27,9 @@ void Serializer::init(BattlefieldStruct* battlefieldStruct, Soldier* greenSoldie
 
 void Serializer::setBattlefield(BattlefieldStruct* battlefieldStruct)
 {
+	std::mutex mutex;
+	std::lock_guard<std::mutex> lock(mutex);
+
 	m_battlefield.height = battlefieldStruct->height;
 	m_battlefield.width = battlefieldStruct->width;
 }
@@ -33,6 +38,9 @@ void Serializer::setBattlefield(BattlefieldStruct* battlefieldStruct)
 
 void Serializer::setGreenSoldier(Soldier* greenSoldier)
 {
+	std::mutex mutex;
+	std::lock_guard<std::mutex> lock(mutex);
+
 	m_greenSoldier.center = greenSoldier->getCenter();
 	m_greenSoldier.radius = greenSoldier->getRadius();
 	m_greenSoldier.health = greenSoldier->getHealth();
@@ -42,6 +50,9 @@ void Serializer::setGreenSoldier(Soldier* greenSoldier)
 
 void Serializer::setBlueSoldier(Soldier* blueSoldier)
 {
+	std::mutex mutex;
+	std::lock_guard<std::mutex> lock(mutex);
+
 	m_blueSoldier.center = blueSoldier->getCenter();
 	m_blueSoldier.radius = blueSoldier->getRadius();
 	m_blueSoldier.health = blueSoldier->getHealth();
