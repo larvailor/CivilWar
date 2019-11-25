@@ -139,6 +139,7 @@
     <ClInclude Include="CGameState.h" />
     <ClInclude Include="CModelsAsDataTypes.h" />
     <ClInclude Include="CMoveAndFireMsg.h" />
+    <ClInclude Include="CMoveMsg.h" />
     <ClInclude Include="CMsgTypesFromServer.h" />
     <ClInclude Include="CMsgTypesToServer.h" />
     <ClInclude Include="Config.h" />

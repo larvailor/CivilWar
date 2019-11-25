@@ -93,6 +93,7 @@ void CivilWar::translateAndProcessGreenPlayerMsg(std::vector<char> msg)
 void CivilWar::handleGreenMoveAndFireMsg(std::vector<char> msg)
 {
 	handleSoldierMove(m_greenSoldier, msg[1]);
+	//createBullet();
 	// TODO: handle fire
 }
 

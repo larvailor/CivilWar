@@ -98,8 +98,25 @@ void CGame::recvBattleMsg()
 
 void CGame::sendClientData()
 {
-	m_network->sendClientData(m_serializer->createMoveAndFireMsg(m_window->getPressedKey(), 500, 500)); // TODO: mouse processing
+	if (m_window->getCursorX() != -1 && m_window->getCursorY() != -1) {
+		m_network->sendMoveAndFireMsg(
+			m_serializer->createMoveAndFireMsg(
+				m_window->getPressedKey(),
+				m_window->getCursorX(),
+				m_window->getCursorY()
+			)
+		);
+	}
+	else {
+		m_network->sendMoveMsg(
+			m_serializer->createMoveMsg(
+				m_window->getPressedKey()
+			)
+		);
+	}
+
 	m_window->dropPressedKey();
+	m_window->dropCursor();
 }
 
 

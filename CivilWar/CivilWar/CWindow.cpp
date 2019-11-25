@@ -11,6 +11,10 @@ LRESULT CWindow::HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
 	switch (uMsg) {
 	case WM_CREATE:
+		SetTimer(m_hwnd, 1, 1000, NULL);
+		return 0;
+	case WM_TIMER:
+		GetCursorPos(&m_cursor);
 		return 0;
 	case WM_PAINT:
 		draw();
@@ -30,8 +34,9 @@ LRESULT CWindow::HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam)
 			m_pressedKey = 'D';
 			break;
 		}
-		break;
+		return 0;
 	case WM_DESTROY:
+		KillTimer(m_hwnd, 1);
 		PostQuitMessage(0);
 		return 0;
 	}
