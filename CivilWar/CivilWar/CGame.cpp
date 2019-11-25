@@ -1,11 +1,19 @@
+#ifndef UNICODE
+#define UNICODE
+#endif
+
 #include "CGame.h"
+
+#include "CGameState.h"
 
 #include <vector>
 
 CGame::CGame() :
+	m_window(nullptr),
 	m_isRunning(false),
 	m_gameState(NULL),
-	m_advancedGameState(NULL)
+	m_advancedGameState(NULL),
+	m_wndThr(nullptr)
 {
 	m_network = new Network();
 	m_serializer = new CSerializer();
@@ -21,9 +29,9 @@ CGame::~CGame()
 
 
 
-void CGame::initAll()
+void CGame::initAll(HINSTANCE hInstance, int nCmdShow)
 {
-	
+	m_window = new CWindow(hInstance, nCmdShow);
 }
 
 
@@ -56,3 +64,63 @@ void CGame::recvDataAndUpdate()
 	std::vector<char> blueSoldierMsg = m_network->recvMsg();
 	m_serializer->translateMsg(blueSoldierMsg);
 }
+
+
+
+void CGame::handleState()
+{
+	switch (m_gameState) {
+	case BEFORE_BATTLE_STATE:
+		handleBeforeBattleState();
+		break;
+	case BATTLE_STATE:
+		break;
+	case AFTER_BATTLE_STATE:
+		handleAfterBattleState();
+		break;
+	}
+}
+
+
+
+void CGame::handleBeforeBattleState()
+{
+	m_wndThr = new std::thread(&CGame::windowThread, this);
+}
+
+
+
+void CGame::handleAfterBattleState()
+{
+	m_wndThr->join();
+	m_isRunning = false;
+}
+
+
+
+void CGame::windowThread()
+{
+	BattlefieldStruct* tmpBattlefield = m_serializer->getBattlefieldStruct();
+	BOOL createResult = m_window->create(
+		L"CivilWar",
+		WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU,
+		static_cast<int>(tmpBattlefield->width),
+		static_cast<int>(tmpBattlefield->height)
+	);
+	delete(tmpBattlefield);
+	if (!createResult) {
+		MessageBox(NULL, L"Create window failed", L"Error", NULL);
+		m_isRunning = false;
+		return;
+	}
+
+	ShowWindow(m_window->getWindow(), m_window->getNCmdShow());
+
+	MSG msg = { };
+	while (GetMessage(&msg, NULL, 0, 0))
+	{
+		TranslateMessage(&msg);
+		DispatchMessage(&msg);
+	}
+}
+
