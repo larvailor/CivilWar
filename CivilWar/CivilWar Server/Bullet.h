@@ -10,12 +10,16 @@ public:
 
 
 	Point getCenter() const { return m_center; }
+	int getX() const { return m_center.x; }
+	int getY() const { return m_center.y; }
 	Radius getRadius() const { return m_radius; }
 	DirectionX getDirectionX() const { return m_dirX; }
 	DirectionY getDirectionY() const { return m_dirY; }
 	Speed getSpeed() const { return m_speed; }
 
 	void setCenter(Point center) { m_center = center; }
+	void setX(int x) { m_center.x = x; }
+	void setY(int y) { m_center.y = y; }
 	void setRadius(Radius radius) { m_radius = radius; }
 	void setDirectionX(DirectionX dirX) { m_dirX = dirX; }
 	void setDirectionY(DirectionY dirY) { m_dirY = dirY; }
@@ -28,8 +32,4 @@ private:
 	DirectionX m_dirX;
 	DirectionY m_dirY;
 	Speed m_speed;
-
-
-
-	// methods
 };

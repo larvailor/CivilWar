@@ -122,5 +122,8 @@
     <ClInclude Include="Painter.h">
       <Filter>Header Files\Drawing</Filter>
     </ClInclude>
+    <ClInclude Include="CMoveMsg.h">
+      <Filter>Header Files\Network\Messages</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

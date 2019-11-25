@@ -2,6 +2,7 @@
 
 #include "CModelsAsDataTypes.h"
 
+#include "CMoveMsg.h"
 #include "CMoveAndFireMsg.h"
 
 #include <vector>
@@ -23,6 +24,7 @@ public:
 	SoldierStruct* getGreenSoldierStruct();
 	SoldierStruct* getBlueSoldierStruct();
 
+	CMoveMsg* createMoveMsg(char pressedKey);
 	CMoveAndFireMsg* createMoveAndFireMsg(char pressedKey, int mouseX, int mouseY);
 
 private:
