@@ -18,6 +18,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR, int nCmdShow)
 		while (game->isRunning()) {
 			game->recvDataAndUpdate();
 			game->handleState();
+			game->draw();
 		}
 	}
 	catch (BaseCWException e) {

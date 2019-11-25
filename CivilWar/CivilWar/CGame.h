@@ -19,6 +19,7 @@ public:
 
 	void recvDataAndUpdate();
 	void handleState();
+	void draw();
 
 private:
 	// variables

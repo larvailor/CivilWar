@@ -40,6 +40,12 @@
     <Filter Include="Header Files\Network\Messages">
       <UniqueIdentifier>{3b9441e1-fda0-4415-842a-4ed9b6975112}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Drawing">
+      <UniqueIdentifier>{c256b60e-b0d0-4d91-a728-8e76b86d5eb2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Drawing">
+      <UniqueIdentifier>{1c5ef31b-4f57-4839-9a0b-f2139695f3f9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source Client.cpp">
@@ -59,6 +65,12 @@
     </ClCompile>
     <ClCompile Include="CSerializer.cpp">
       <Filter>Source Files\Serializer</Filter>
+    </ClCompile>
+    <ClCompile Include="CWindow.cpp">
+      <Filter>Source Files\Drawing</Filter>
+    </ClCompile>
+    <ClCompile Include="Painter.cpp">
+      <Filter>Source Files\Drawing</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -103,6 +115,15 @@
     </ClInclude>
     <ClInclude Include="CGameState.h">
       <Filter>Header Files\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseWindow.h">
+      <Filter>Header Files\Drawing</Filter>
+    </ClInclude>
+    <ClInclude Include="CWindow.h">
+      <Filter>Header Files\Drawing</Filter>
+    </ClInclude>
+    <ClInclude Include="Painter.h">
+      <Filter>Header Files\Drawing</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -25,13 +25,14 @@ CGame::~CGame()
 {
 	delete(m_serializer);
 	delete(m_network);
+	delete(m_window);
 }
 
 
 
 void CGame::initAll(HINSTANCE hInstance, int nCmdShow)
 {
-	m_window = new CWindow(hInstance, nCmdShow);
+	m_window = new CWindow(m_serializer, hInstance, nCmdShow);
 }
 
 
@@ -124,3 +125,9 @@ void CGame::windowThread()
 	}
 }
 
+
+
+void CGame::draw()
+{
+	InvalidateRect(m_window->getWindow(), NULL, TRUE);
+}

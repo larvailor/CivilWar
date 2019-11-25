@@ -129,6 +129,7 @@
     <ClCompile Include="CwClientSocketUdp.cpp" />
     <ClCompile Include="CWindow.cpp" />
     <ClCompile Include="Network.cpp" />
+    <ClCompile Include="Painter.cpp" />
     <ClCompile Include="Source Client.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -148,6 +149,7 @@
     <ClInclude Include="CwClientSocketUdp.h" />
     <ClInclude Include="CWindow.h" />
     <ClInclude Include="Network.h" />
+    <ClInclude Include="Painter.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
