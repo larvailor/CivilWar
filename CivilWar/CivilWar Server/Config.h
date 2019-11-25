@@ -3,10 +3,10 @@
 constexpr auto SERVER_IP = "127.0.0.1";
 constexpr auto SERVER_PORT = 8080;
 
-constexpr auto BATTLEFIELD_WIDTH = 1400.0f;
-constexpr auto BATTLEFIELD_HEIGHT = 1000.0f;
+constexpr auto BATTLEFIELD_WIDTH = 1000.0f;
+constexpr auto BATTLEFIELD_HEIGHT = 600.0f;
 
-constexpr auto GREEN_SOLDIER_START_X = BATTLEFIELD_HEIGHT * 0.15f;
+constexpr auto GREEN_SOLDIER_START_X = BATTLEFIELD_WIDTH * 0.15f;
 constexpr auto GREEN_SOLDIER_START_Y = BATTLEFIELD_HEIGHT * 0.5f;
 constexpr auto GREEN_SOLDIER_RADIUS  = BATTLEFIELD_HEIGHT * 0.05f;
 constexpr auto GREEN_SOLDIER_HEALTH = 3;
