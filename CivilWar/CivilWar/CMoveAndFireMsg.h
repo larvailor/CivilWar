@@ -61,10 +61,15 @@ private:
 		char units = size;
 
 		char* sizeStr = new char[5];
-		sizeStr[0] = thousands + 0x30;
-		sizeStr[1] = hundreds + 0x30;
-		sizeStr[2] = tens + 0x30;
-		sizeStr[3] = units + 0x30;
+		//sizeStr[0] = thousands + 0x30;
+		//sizeStr[1] = hundreds + 0x30;
+		//sizeStr[2] = tens + 0x30;
+		//sizeStr[3] = units + 0x30;
+		//sizeStr[4] = 0;
+		sizeStr[0] = thousands;
+		sizeStr[1] = hundreds;
+		sizeStr[2] = tens;
+		sizeStr[3] = units;
 		sizeStr[4] = 0;
 		return sizeStr;
 	}

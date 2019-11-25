@@ -20,8 +20,8 @@ public:
 	BattlefieldStruct* getBattlefield() const { return m_battlefield; }
 	Soldier* getGreenSoldier() const { return m_greenSoldier; }
 	Soldier* getBlueSoldier() const { return m_blueSoldier; }
-	std::list<Bullet> getGreenBullets() const { return m_greenBullets; }
-	std::list<Bullet> getBlueBullets() const { return m_blueBullets; }
+	std::vector<Bullet*> getGreenBullets() const { return m_greenBullets; }
+	std::vector<Bullet*> getBlueBullets() const { return m_blueBullets; }
 
 	void translateAndProcessGreenPlayerMsg(std::vector<char> msg);
 	void translateAndProcessBluePlayerMsg(std::vector<char> msg);
@@ -35,8 +35,8 @@ private:
 	Soldier* m_greenSoldier;
 	Soldier* m_blueSoldier;
 
-	std::list<Bullet> m_greenBullets;
-	std::list<Bullet> m_blueBullets;
+	std::vector<Bullet*> m_greenBullets;
+	std::vector<Bullet*> m_blueBullets;
 
 	bool m_isRunning;
 
@@ -45,7 +45,15 @@ private:
 	void initGreenSoldier();
 	void initBlueSoldier();
 
+	void handleGreenMoveMsg(std::vector<char> msg);
+	void handleBlueMoveMsg(std::vector<char> msg);
 	void handleGreenMoveAndFireMsg(std::vector<char> msg);
+	void handleBlueMoveAndFireMsg(std::vector<char> msg);
 
-	void handleSoldierMove(Soldier* soldier, char pressedKey);
+	void moveSoldier(Soldier* soldier, char pressedKey);
+	void moveBullets(std::vector<Bullet*> bullets);
+
+	void addBullet(Soldier* soldier, std::vector<Bullet*> bullets, std::vector<char> msg);
+
+	int strToInt(char thousands, char hundreds, char tens, char units);
 };
