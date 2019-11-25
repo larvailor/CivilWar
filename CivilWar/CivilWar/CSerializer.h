@@ -2,6 +2,8 @@
 
 #include "CModelsAsDataTypes.h"
 
+#include "CMoveAndFireMsg.h"
+
 #include <vector>
 
 class CSerializer
@@ -20,6 +22,8 @@ public:
 	BattlefieldStruct* getBattlefieldStruct();
 	SoldierStruct* getGreenSoldierStruct();
 	SoldierStruct* getBlueSoldierStruct();
+
+	CMoveAndFireMsg* createMoveAndFireMsg(char pressedKey, int mouseX, int mouseY);
 
 private:
 	// variables

@@ -69,6 +69,14 @@ void CGame::recvDataAndUpdate()
 
 
 
+void CGame::sendClientData()
+{
+	m_network->sendClientData(m_serializer->createMoveAndFireMsg(m_window->getPressedKey(), 500, 500)); // TODO: mouse processing
+	m_window->dropPressedKey();
+}
+
+
+
 void CGame::handleState()
 {
 	switch (m_gameState) {

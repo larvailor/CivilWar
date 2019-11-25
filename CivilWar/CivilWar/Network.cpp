@@ -73,3 +73,15 @@ std::vector<char> Network::recvMsg()
 	delete[](buffer);
 	return msg;
 }
+
+
+
+void Network::sendClientData(CMoveAndFireMsg* moveAndFireMsg)
+{
+	std::vector<char> msg = moveAndFireMsg->getMsg();
+	delete(moveAndFireMsg);
+
+	int bytesSent = 0;
+	std::string errorMsg;
+	bytesSent = m_socketTcp->sendMsgToServer(msg.data(), msg.size(), NULL);
+}

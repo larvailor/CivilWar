@@ -14,6 +14,8 @@ public:
 	void connectToCwServer(const char* ip, int port);
 	void recvMsgFromServer(char* buffer, int bufferSize, int &bytesReceived);
 
+	int sendMsgToServer(char* msg, size_t msgSize, int flags);
+
 private:
 	// variables
 	SOCKET m_socket;
