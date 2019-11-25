@@ -147,6 +147,7 @@
     <ClInclude Include="ModelsAsDataTypes.h" />
     <ClInclude Include="Msg.h" />
     <ClInclude Include="MsgTypes.h" />
+    <ClInclude Include="MsgTypesFromClient.h" />
     <ClInclude Include="Serializer.h" />
     <ClInclude Include="SoldierMsg.h" />
     <ClInclude Include="Types.h" />

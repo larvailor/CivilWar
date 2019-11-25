@@ -184,6 +184,27 @@ void Server::sendBeforeBattleMsg(BattlefieldMsg* battlefieldMsg, SoldierMsg* gre
 
 
 
+void Server::sendBattleMsg(SoldierMsg* greenSoldierMsg, SoldierMsg* blueSoldierMsg)
+{
+	// greeen soldier
+	try {
+		sendSoldierMsg(greenSoldierMsg);
+	}
+	catch (BaseCWServerException e) {
+		std::cout << e.getMsg() << std::endl;
+	}
+
+	// blue soldier
+	try {
+		sendSoldierMsg(blueSoldierMsg);
+	}
+	catch (BaseCWServerException e) {
+		std::cout << e.getMsg() << std::endl;
+	}
+}
+
+
+
 void Server::sendBattlefieldMsg(BattlefieldMsg* battlefieldMsg)
 {
 	std::vector<char> msg = battlefieldMsg->getMsg();
@@ -254,4 +275,38 @@ void Server::sendGameStateMsg(GameStateMsg* gameStateMsg)
 	if (bytesSent == SOCKET_ERROR) {
 		errorMsg += "sendGameStateMsg msg to blue player failed with error: " + std::to_string(WSAGetLastError());
 	}
+}
+
+
+
+std::vector<char> Server::recvMsgFromGreenPlayer()
+{
+	char* buffer = new char[64];
+	int bytesReceived = 0;
+	m_socketTcp->recvMsgFromClient(m_greenSoldierSocket, buffer, 64, bytesReceived);
+
+	std::vector<char> msg;
+	for (int i = 0; i < bytesReceived; i++) {
+		msg.push_back(buffer[i]);
+	}
+
+	delete[](buffer);
+	return msg;
+}
+
+
+
+std::vector<char> Server::recvMsgFromBluePlayer()
+{
+	char* buffer = new char[64];
+	int bytesReceived = 0;
+	m_socketTcp->recvMsgFromClient(m_blueSoldierSocket, buffer, 64, bytesReceived);
+
+	std::vector<char> msg;
+	for (int i = 0; i < bytesReceived; i++) {
+		msg.push_back(buffer[i]);
+	}
+
+	delete[](buffer);
+	return msg;
 }

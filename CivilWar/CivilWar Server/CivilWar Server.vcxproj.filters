@@ -96,6 +96,9 @@
     <ClInclude Include="GameStateMsg.h">
       <Filter>Header Files\Network\Messages</Filter>
     </ClInclude>
+    <ClInclude Include="MsgTypesFromClient.h">
+      <Filter>Header Files\Types</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source Server.cpp">

@@ -16,6 +16,7 @@ public:
 	void waitForClients();
 	void start();
 	void handleState();
+	void recvMsgsAndProcess();
 
 	bool isRunning() const { return m_is_running; }
 
@@ -33,4 +34,5 @@ private:
 
 	// methods
 	void handleBeforeBattle();
+	void handleBattleState();
 };

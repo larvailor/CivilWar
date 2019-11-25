@@ -85,3 +85,16 @@ int CwServerSocketTcp::sendMsgToClient(SOCKET clientSocket, char* msg, size_t ms
 	
 	return bytesSent;
 }
+
+
+
+void CwServerSocketTcp::recvMsgFromClient(SOCKET clientSocket, char* buffer, int bufferSize, int& bytesReceived)
+{
+	bytesReceived = recv(clientSocket, buffer, bufferSize, NULL);
+
+	// send confirm to client
+	char confirmBufferSize = 1;
+	char* confirmBuffer = new char[confirmBufferSize];
+	confirmBuffer[0] = 1;
+	send(clientSocket, confirmBuffer, confirmBufferSize, NULL);
+}

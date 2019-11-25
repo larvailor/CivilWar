@@ -18,7 +18,10 @@ public:
 	void waitForClients();
 
 	void sendBeforeBattleMsg(BattlefieldMsg* battlefieldMsg, SoldierMsg* greenSoldierMsg, SoldierMsg* blueSoldierMsg);
+	void sendBattleMsg(SoldierMsg* greenSoldierMsg, SoldierMsg* blueSoldierMsg);
 	void sendGameStateMsg(GameStateMsg* gameStateMsg);
+	std::vector<char> recvMsgFromGreenPlayer();
+	std::vector<char> recvMsgFromBluePlayer();
 
 private:
 	// variables

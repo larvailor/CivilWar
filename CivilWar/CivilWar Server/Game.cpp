@@ -64,6 +64,7 @@ void Game::handleState()
 		handleBeforeBattle();
 		break;
 	case BATTLE_STATE:
+		handleBattleState();
 		break;
 	case AFTER_BATTLE_STATE:
 		break;
@@ -83,4 +84,31 @@ void Game::handleBeforeBattle()
 	);
 
 	m_gameState = BATTLE_STATE;
+}
+
+
+
+void Game::handleBattleState()
+{
+	m_server->sendGameStateMsg(m_serializer->createGameStateMsg(m_gameState, m_advancedGameState));
+
+	m_server->sendBattleMsg(
+		m_serializer->createGreenSoldierMsg(m_cw->getGreenSoldier()),
+		m_serializer->createBlueSoldierMsg(m_cw->getBlueSoldier())
+	);
+}
+
+
+
+void Game::recvMsgsAndProcess()
+{
+	std::vector<char> greenMsg = m_server->recvMsgFromGreenPlayer();
+	m_cw->translateAndProcessGreenPlayerMsg(greenMsg);
+	m_serializer->setGreenSoldier(m_cw->getGreenSoldier());
+	// TODO: set bullets
+
+	std::vector<char> blueMsg = m_server->recvMsgFromBluePlayer();
+	m_cw->translateAndProcessBluePlayerMsg(blueMsg);
+	m_serializer->setBlueSoldier(m_cw->getBlueSoldier());
+	// TODO: set bullets
 }

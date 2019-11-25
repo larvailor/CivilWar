@@ -6,6 +6,7 @@
 #include "Bullet.h"
 
 #include <list>
+#include <vector>
 
 class CivilWar
 {
@@ -22,7 +23,10 @@ public:
 	std::list<Bullet> getGreenBullets() const { return m_greenBullets; }
 	std::list<Bullet> getBlueBullets() const { return m_blueBullets; }
 
-	bool isRunning() const { return m_is_running; }
+	void translateAndProcessGreenPlayerMsg(std::vector<char> msg);
+	void translateAndProcessBluePlayerMsg(std::vector<char> msg);
+
+	bool isRunning() const { return m_isRunning; }
 
 private:
 	// variables
@@ -34,10 +38,14 @@ private:
 	std::list<Bullet> m_greenBullets;
 	std::list<Bullet> m_blueBullets;
 
-	bool m_is_running;
+	bool m_isRunning;
 
 	// methods
 	void initBattlefield();
 	void initGreenSoldier();
 	void initBlueSoldier();
+
+	void handleGreenMoveAndFireMsg(std::vector<char> msg);
+
+	void handleSoldierMove(Soldier* soldier, char pressedKey);
 };
