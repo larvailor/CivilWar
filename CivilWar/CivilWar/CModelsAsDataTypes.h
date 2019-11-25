@@ -16,9 +16,6 @@ typedef struct soldier {
 typedef struct bullet {
 	Point center;
 	Radius radius;
-	DirectionX dirX;
-	DirectionY dirY;
-	Speed speed;
 } BulletStruct;
 
 constexpr auto BATTLEFIELD_STRUCT_SIZE = static_cast<int>(sizeof(BattlefieldStruct));
