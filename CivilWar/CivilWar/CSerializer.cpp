@@ -42,9 +42,6 @@ void CSerializer::translateMsg(std::vector<char> msg)
 	case BULLETS_MSG_TYPE:
 		translateBulletsMsg(msg);
 		break;
-	case GAME_STATE_MSG_TYPE:
-		//translateGameStateMsg(msg);
-		break;
 	}
 }
 
@@ -92,7 +89,28 @@ void CSerializer::translateSoldierMsg(std::vector<char> msg)
 
 void CSerializer::translateBulletsMsg(std::vector<char> msg)
 {
-	// TBD
+	std::vector<BulletStruct*> bullets;
+	char nOfBullets = msg[2];
+	for (int bulletN = 0; bulletN < nOfBullets; bulletN++) {
+		char* buffer = new char[BULLET_STRUCT_SIZE];
+
+		int pos = bulletN * BULLET_STRUCT_SIZE + 7;
+		for (int i = 0; i < BULLET_STRUCT_SIZE; i++) {
+			buffer[i] = msg[pos + i];
+		}
+
+		BulletStruct* bullet = reinterpret_cast<BulletStruct*>(buffer);
+		bullets.push_back(bullet);
+	}
+
+	switch (msg[1]) {
+	case GREEN_BULLETS:
+		setGreenBullets(bullets);
+		break;
+	case BLUE_BULLETS:
+		setBlueBullets(bullets);
+		break;
+	}
 }
 
 
@@ -107,8 +125,7 @@ void CSerializer::translateGameStateMsg(std::vector<char> msg, char &gameState, 
 
 void CSerializer::setBattlefield(BattlefieldStruct* battlefield)
 {
-	std::mutex mutex;
-	std::lock_guard<std::mutex> lock(mutex);
+	std::lock_guard<std::mutex> lock(m_mutex);
 
 	m_battlefield.width = battlefield->width;
 	m_battlefield.height = battlefield->height;
@@ -118,8 +135,7 @@ void CSerializer::setBattlefield(BattlefieldStruct* battlefield)
 
 void CSerializer::setGreenSoldier(SoldierStruct* soldier)
 {
-	std::mutex mutex;
-	std::lock_guard<std::mutex> lock(mutex);
+	std::lock_guard<std::mutex> lock(m_mutex);
 
 	m_greenSoldier.center = soldier->center;
 	m_greenSoldier.health = soldier->health;
@@ -130,8 +146,7 @@ void CSerializer::setGreenSoldier(SoldierStruct* soldier)
 
 void CSerializer::setBlueSoldier(SoldierStruct* soldier)
 {
-	std::mutex mutex;
-	std::lock_guard<std::mutex> lock(mutex);
+	std::lock_guard<std::mutex> lock(m_mutex);
 
 	m_blueSoldier.center = soldier->center;
 	m_blueSoldier.health = soldier->health;
@@ -140,10 +155,39 @@ void CSerializer::setBlueSoldier(SoldierStruct* soldier)
 
 
 
+void CSerializer::setGreenBullets(std::vector<BulletStruct*> bullets)
+{
+	std::lock_guard<std::mutex> lock(m_mutex);
+
+	m_greenBullets.clear();
+	for (auto bullet = bullets.begin(); bullet != bullets.end(); bullet++) {
+		BulletStruct newBullet;
+		newBullet.center = (*bullet)->center;
+		newBullet.radius = (*bullet)->radius;
+		m_greenBullets.push_back(newBullet);
+	}
+}
+
+
+
+void CSerializer::setBlueBullets(std::vector<BulletStruct*> bullets)
+{
+	std::lock_guard<std::mutex> lock(m_mutex);
+
+	m_blueBullets.clear();
+	for (auto bullet = bullets.begin(); bullet != bullets.end(); bullet++) {
+		BulletStruct newBullet;
+		newBullet.center = (*bullet)->center;
+		newBullet.radius = (*bullet)->radius;
+		m_blueBullets.push_back(newBullet);
+	}
+}
+
+
+
 BattlefieldStruct* CSerializer::getBattlefieldStruct()
 {
-	std::mutex mutex;
-	std::lock_guard<std::mutex> lock(mutex);
+	std::lock_guard<std::mutex> lock(m_mutex);
 
 	BattlefieldStruct* newBttlfldStr = new BattlefieldStruct();
 	newBttlfldStr->width = m_battlefield.width;
@@ -156,8 +200,7 @@ BattlefieldStruct* CSerializer::getBattlefieldStruct()
 
 SoldierStruct* CSerializer::getGreenSoldierStruct()
 {
-	std::mutex mutex;
-	std::lock_guard<std::mutex> lock(mutex);
+	std::lock_guard<std::mutex> lock(m_mutex);
 
 	SoldierStruct* newGreenSldrdStr = new SoldierStruct();
 	newGreenSldrdStr->center = m_greenSoldier.center;
@@ -171,8 +214,7 @@ SoldierStruct* CSerializer::getGreenSoldierStruct()
 
 SoldierStruct* CSerializer::getBlueSoldierStruct()
 {
-	std::mutex mutex;
-	std::lock_guard<std::mutex> lock(mutex);
+	std::lock_guard<std::mutex> lock(m_mutex);
 
 	SoldierStruct* newBlueSldrdStr = new SoldierStruct();
 	newBlueSldrdStr->center = m_blueSoldier.center;
@@ -180,6 +222,40 @@ SoldierStruct* CSerializer::getBlueSoldierStruct()
 	newBlueSldrdStr->radius = m_blueSoldier.radius;
 
 	return newBlueSldrdStr;
+}
+
+
+
+std::vector<BulletStruct*> CSerializer::getGreenBulletsCopy()
+{
+	std::lock_guard<std::mutex> lock(m_mutex);
+
+	std::vector<BulletStruct*> greenBulletsCopy;
+	for (auto bullet = m_greenBullets.begin(); bullet != m_greenBullets.end(); bullet++) {
+		BulletStruct* tmpBullet = new BulletStruct();
+		tmpBullet->center = (*bullet).center;
+		tmpBullet->radius = (*bullet).radius;
+		greenBulletsCopy.push_back(tmpBullet);
+	}
+
+	return greenBulletsCopy;
+}
+
+
+
+std::vector<BulletStruct*> CSerializer::getBlueBulletsCopy()
+{
+	std::lock_guard<std::mutex> lock(m_mutex);
+
+	std::vector<BulletStruct*> blueBulletsCopy;
+	for (auto bullet = m_blueBullets.begin(); bullet != m_blueBullets.end(); bullet++) {
+		BulletStruct* tmpBullet = new BulletStruct();
+		tmpBullet->center = (*bullet).center;
+		tmpBullet->radius = (*bullet).radius;
+		blueBulletsCopy.push_back(tmpBullet);
+	}
+
+	return blueBulletsCopy;
 }
 
 

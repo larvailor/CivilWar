@@ -47,6 +47,11 @@ LRESULT CWindow::HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam)
 
 void CWindow::draw()
 {
-	m_painter->drawSoldiers(m_hwnd, m_serializer->getGreenSoldierStruct(), m_serializer->getBlueSoldierStruct());
-	// TODO: draw bullets
+	m_painter->drawCivilWar(
+		m_hwnd,
+		m_serializer->getGreenSoldierStruct(),
+		m_serializer->getBlueSoldierStruct(),
+		m_serializer->getGreenBulletsCopy(),
+		m_serializer->getBlueBulletsCopy()
+	);
 }

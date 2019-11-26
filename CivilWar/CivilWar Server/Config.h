@@ -18,5 +18,5 @@ constexpr auto BLUE_SOLDIER_RADIUS  = BATTLEFIELD_HEIGHT * 0.05f;
 constexpr auto BLUE_SOLDIER_HEALTH  = 1;
 constexpr auto BLUE_SOLDIER_SPEED   = 10;
 
-constexpr auto BULLET_RADIUS = BATTLEFIELD_HEIGHT * 0.005f;
+constexpr auto BULLET_RADIUS = BATTLEFIELD_HEIGHT * 0.015f;
 constexpr auto BULLET_SPEED  = 5;

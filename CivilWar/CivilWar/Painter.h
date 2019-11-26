@@ -3,13 +3,14 @@
 #include "CModelsAsDataTypes.h"
 
 #include <Windows.h>
+#include <vector>
 
 class Painter {
 public:
 	Painter();
 	~Painter();
 
-	void drawSoldiers(HWND hwnd, SoldierStruct* greenSoldier, SoldierStruct* blueSoldier);
+	void drawCivilWar(HWND hwnd, SoldierStruct* greenSoldier, SoldierStruct* blueSoldier, std::vector<BulletStruct*> greenBullets, std::vector<BulletStruct*> blueBullets);
 
 private:
 	// variables
@@ -19,5 +20,5 @@ private:
 
 
 	// methods
-	void drawCircle(HWND hwnd, HDC hdc, int x, int y, int radius, HBRUSH hBrush);
+	void drawCircle(HWND hwnd, HDC hdc, float x, float y, float radius, HBRUSH hBrush);
 };
