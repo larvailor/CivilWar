@@ -74,7 +74,7 @@ int CwServerSocketTcp::sendMsgToClient(SOCKET clientSocket, char* msg, size_t ms
 	char confirmBufferSize = 1;
 	char* confirmBuffer = new char[confirmBufferSize];
 	for (int tries = 3; tries != 0; tries--) {
-		bytesSent = send(clientSocket, msg, msgSize, flags);
+		bytesSent = send(clientSocket, msg, static_cast<int>(msgSize), flags);
 
 		// wait while client confirm msg
 		bytesReceived = recv(clientSocket, confirmBuffer, confirmBufferSize, NULL); 
