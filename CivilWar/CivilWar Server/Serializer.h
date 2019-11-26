@@ -12,6 +12,7 @@
 #include "BulletsMsg.h"
 #include "GameStateMsg.h"
 
+#include <mutex>
 #include <list>
 
 class Serializer
@@ -45,4 +46,6 @@ private:
 
 	std::vector<BulletStruct> m_greenBullets;
 	std::vector<BulletStruct> m_blueBullets;
+
+	std::mutex m_mutex;
 };

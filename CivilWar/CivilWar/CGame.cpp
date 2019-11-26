@@ -92,6 +92,12 @@ void CGame::recvBattleMsg()
 
 	std::vector<char> blueSoldierMsg = m_network->recvMsg();
 	m_serializer->translateMsg(blueSoldierMsg);
+
+	std::vector<char> greenBulletsMsg = m_network->recvMsg();
+	m_serializer->translateMsg(greenBulletsMsg);
+
+	std::vector<char> blueBulletsMsg = m_network->recvMsg();
+	m_serializer->translateMsg(blueBulletsMsg);
 }
 
 
@@ -148,7 +154,7 @@ void CGame::handleBeforeBattleState()
 
 void CGame::handleBattleState()
 {
-
+	// TBD
 }
 
 
