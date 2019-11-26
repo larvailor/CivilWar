@@ -7,6 +7,7 @@
 
 #include <list>
 #include <vector>
+#include <thread>
 
 class CivilWar
 {
@@ -40,6 +41,9 @@ private:
 
 	bool m_isRunning;
 
+	std::thread* m_blltsMvThr;
+
+
 	// methods
 	void initBattlefield();
 	void initGreenSoldier();
@@ -51,9 +55,10 @@ private:
 	void handleBlueMoveAndFireMsg(std::vector<char> msg);
 
 	void moveSoldier(Soldier* soldier, char pressedKey);
-	void moveBullets(std::vector<Bullet*> bullets);
+	void moveBulletsThread();
+	void moveBullets(std::vector<Bullet*>& bullets);
 
-	void addBullet(Soldier* soldier, std::vector<Bullet*> bullets, std::vector<char> msg);
+	void addBullet(Soldier* soldier, std::vector<Bullet*>& bullets, std::vector<char> msg);
 
 	int strToInt(char thousands, char hundreds, char tens, char units);
 };
