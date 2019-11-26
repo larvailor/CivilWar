@@ -8,6 +8,7 @@ public:
 	Bullet(Point center, Radius radius, DirectionX dirX, DirectionY dirY, Speed speedX, Speed speedY);
 	~Bullet();
 
+	void move();
 
 	Point getCenter() const { return m_center; }
 	float getX() const { return m_center.x; }

@@ -51,6 +51,7 @@ void Game::waitForClients()
 void Game::start()
 {
 	m_is_running = true;
+	m_cw->start();
 	m_gameState = BEFORE_BATTLE_STATE;
 }
 

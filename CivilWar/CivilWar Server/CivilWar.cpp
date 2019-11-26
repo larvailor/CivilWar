@@ -8,6 +8,7 @@
 #include "BaseCWServerException.h"
 
 #include <cmath>
+#include <mutex>
 
 CivilWar::CivilWar() :
 	m_battlefield(nullptr),
@@ -22,6 +23,8 @@ CivilWar::CivilWar() :
 
 CivilWar::~CivilWar()
 {
+	m_blltsMvThr->join();
+
 	delete(m_battlefield);
 	delete(m_blueSoldier);
 	delete(m_greenSoldier);
@@ -72,7 +75,7 @@ void CivilWar::initBlueSoldier()
 void CivilWar::start()
 {
 	m_isRunning = true;
-	
+	m_blltsMvThr = new std::thread(&CivilWar::moveBulletsThread, this);
 }
 
 
@@ -90,7 +93,6 @@ void CivilWar::translateAndProcessGreenPlayerMsg(std::vector<char> msg)
 		m_isRunning = false;
 		break;
 	}
-	moveBullets(m_greenBullets);
 }
 
 
@@ -108,7 +110,6 @@ void CivilWar::translateAndProcessBluePlayerMsg(std::vector<char> msg)
 		m_isRunning = false;
 		break;
 	}
-	moveBullets(m_blueBullets);
 }
 
 
@@ -176,66 +177,46 @@ void CivilWar::moveSoldier(Soldier* soldier, char pressedKey)
 
 
 
-void CivilWar::moveBullets(std::vector<Bullet*> bullets)
+void CivilWar::moveBulletsThread()
 {
-	// TODO: bullets autside battlefield hould be deleted
-	float res = 0;
-	for (int i = 0; i < bullets.size(); i++) {
-		// process X
-		res = bullets[i]->getX();
-		switch (bullets[i]->getDirectionX()) {
-		case LEFT:
-			res = bullets[i]->getX() - bullets[i]->getSpeedX();
-			if (res > 0) {
-				bullets[i]->setX(res);
-			}
-			break;
-		case RIGHT:
-			res = bullets[i]->getX() + bullets[i]->getSpeedX();
-			if (res < m_battlefield->width) {
-				bullets[i]->setX(res);
-			}
-			break;
-		case NONE_X:
-			break;
-		}
+	std::this_thread::sleep_for(std::chrono::milliseconds(50));
 
-		// process Y
-		res = bullets[i]->getY();
-		switch (bullets[i]->getDirectionY()) {
-		case UP:
-			res = bullets[i]->getY() - bullets[i]->getSpeedY();
-			if (res > 0) {
-				bullets[i]->setY(res);
-			}
-			break;
-		case DOWN:
-			res = bullets[i]->getY() + bullets[i]->getSpeedY();
-			if (res < m_battlefield->height) {
-				bullets[i]->setY(res);
-			}
-			break;
-		case NONE_X:
-			break;
+	while (m_isRunning) {
+		moveBullets(m_greenBullets);
+		moveBullets(m_blueBullets);
+	}
+}
+
+
+
+void CivilWar::moveBullets(std::vector<Bullet*> &bullets)
+{
+	std::mutex mutex;
+	std::lock_guard<std::mutex> lock(mutex);
+
+	for (int i = 0; i < bullets.size(); i++) {
+		bullets[i]->move();
+		if (bullets[i]->getX() < 0 || bullets[i]->getX() > m_battlefield->width || bullets[i]->getY() < 0 || bullets[i]->getY() > m_battlefield->height) {
+			bullets.erase(bullets.begin() + i);
 		}
 	}
 }
 
 
 
-void CivilWar::addBullet(Soldier* soldier, std::vector<Bullet*> bullets, std::vector<char> msg)
+void CivilWar::addBullet(Soldier* soldier, std::vector<Bullet*>& bullets, std::vector<char> msg)
 {
-	Point center;
+	Point center = soldier->getCenter();
 	Radius radius = BULLET_RADIUS;
 	DirectionX dirX;
 	DirectionY dirY;
 	Speed speedX;
 	Speed speedY;
 
-	center.x = static_cast<float>(strToInt(msg[2], msg[3], msg[4], msg[5]));
-	center.y = static_cast<float>(strToInt(msg[6], msg[7], msg[8], msg[9]));
+	float mouseX = static_cast<float>(strToInt(msg[2], msg[3], msg[4], msg[5]));
+	float mouseY = static_cast<float>(strToInt(msg[6], msg[7], msg[8], msg[9]));
 
-	float cathetX = center.x - soldier->getX();
+	float cathetX = mouseX - soldier->getX();
 	if (cathetX < 0) {
 		dirX = LEFT;
 	}
@@ -244,7 +225,7 @@ void CivilWar::addBullet(Soldier* soldier, std::vector<Bullet*> bullets, std::ve
 	}
 	cathetX = abs(cathetX);
 
-	float cathetY = center.y - soldier->getY();
+	float cathetY = mouseY - soldier->getY();
 	if (cathetY < 0) {
 		dirY = UP;
 	}
@@ -259,6 +240,10 @@ void CivilWar::addBullet(Soldier* soldier, std::vector<Bullet*> bullets, std::ve
 	speedY = static_cast<float>(BULLET_SPEED * (cathetY / hypotenuse));
 
 	Bullet* bullet = new Bullet(center, radius, dirX, dirY, speedX, speedY);
+
+	std::mutex mutex;
+	std::lock_guard<std::mutex> lock(mutex);
+
 	bullets.push_back(bullet);
 }
 
