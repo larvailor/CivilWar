@@ -145,7 +145,7 @@ void CivilWar::handleBlueMoveAndFireMsg(std::vector<char> msg)
 
 void CivilWar::moveSoldier(Soldier* soldier, char pressedKey)
 {
-	int res;
+	float res;
 	switch (pressedKey) {
 	case 'W':
 		res = soldier->getY() - soldier->getSpeed();
@@ -179,7 +179,7 @@ void CivilWar::moveSoldier(Soldier* soldier, char pressedKey)
 void CivilWar::moveBullets(std::vector<Bullet*> bullets)
 {
 	// TODO: bullets autside battlefield hould be deleted
-	int res = 0;
+	float res = 0;
 	for (int i = 0; i < bullets.size(); i++) {
 		// process X
 		res = bullets[i]->getX();
@@ -232,10 +232,10 @@ void CivilWar::addBullet(Soldier* soldier, std::vector<Bullet*> bullets, std::ve
 	Speed speedX;
 	Speed speedY;
 
-	center.x = strToInt(msg[2], msg[3], msg[4], msg[5]);
-	center.y = strToInt(msg[6], msg[7], msg[8], msg[9]);
+	center.x = static_cast<float>(strToInt(msg[2], msg[3], msg[4], msg[5]));
+	center.y = static_cast<float>(strToInt(msg[6], msg[7], msg[8], msg[9]));
 
-	int cathetX = center.x - soldier->getX();
+	float cathetX = center.x - soldier->getX();
 	if (cathetX < 0) {
 		dirX = LEFT;
 	}
@@ -244,7 +244,7 @@ void CivilWar::addBullet(Soldier* soldier, std::vector<Bullet*> bullets, std::ve
 	}
 	cathetX = abs(cathetX);
 
-	int cathetY = center.y - soldier->getY();
+	float cathetY = center.y - soldier->getY();
 	if (cathetY < 0) {
 		dirY = UP;
 	}
@@ -253,10 +253,10 @@ void CivilWar::addBullet(Soldier* soldier, std::vector<Bullet*> bullets, std::ve
 	}
 	cathetY = abs(cathetY);
 
-	int hypotenuse = static_cast<int>(sqrt(cathetX * cathetX + cathetY * cathetY));
+	float hypotenuse = static_cast<float>(sqrt(cathetX * cathetX + cathetY * cathetY));
 
-	speedX = static_cast<int>(BULLET_SPEED * cathetX / hypotenuse);
-	speedY = static_cast<int>(BULLET_SPEED * cathetY / hypotenuse);
+	speedX = static_cast<float>(BULLET_SPEED * (cathetX / hypotenuse));
+	speedY = static_cast<float>(BULLET_SPEED * (cathetY / hypotenuse));
 
 	Bullet* bullet = new Bullet(center, radius, dirX, dirY, speedX, speedY);
 	bullets.push_back(bullet);
