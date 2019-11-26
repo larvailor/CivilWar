@@ -99,6 +99,9 @@
     <ClInclude Include="MsgTypesFromClient.h">
       <Filter>Header Files\Types</Filter>
     </ClInclude>
+    <ClInclude Include="BulletsMsg.h">
+      <Filter>Header Files\Network\Messages</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source Server.cpp">

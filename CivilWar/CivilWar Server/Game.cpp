@@ -95,7 +95,9 @@ void Game::handleBattleState()
 
 	m_server->sendBattleMsg(
 		m_serializer->createGreenSoldierMsg(m_cw->getGreenSoldier()),
-		m_serializer->createBlueSoldierMsg(m_cw->getBlueSoldier())
+		m_serializer->createBlueSoldierMsg(m_cw->getBlueSoldier()),
+		m_serializer->createGreenBulletsMsg(m_cw->getGreenBullets()),
+		m_serializer->createBlueBulletsMsg(m_cw->getBlueBullets())
 	);
 }
 
@@ -106,10 +108,10 @@ void Game::recvMsgsAndProcess()
 	std::vector<char> greenMsg = m_server->recvMsgFromGreenPlayer();
 	m_cw->translateAndProcessGreenPlayerMsg(greenMsg);
 	m_serializer->setGreenSoldier(m_cw->getGreenSoldier());
-	// TODO: set bullets
+	m_serializer->setGreenBullets(m_cw->getGreenBullets());
 
 	std::vector<char> blueMsg = m_server->recvMsgFromBluePlayer();
 	m_cw->translateAndProcessBluePlayerMsg(blueMsg);
 	m_serializer->setBlueSoldier(m_cw->getBlueSoldier());
-	// TODO: set bullets
+	m_serializer->setBlueBullets(m_cw->getBlueBullets());
 }

@@ -9,6 +9,7 @@
 
 #include <cmath>
 #include <mutex>
+#include <iostream>
 
 CivilWar::CivilWar() :
 	m_battlefield(nullptr),

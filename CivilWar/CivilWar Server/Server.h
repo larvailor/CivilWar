@@ -5,6 +5,7 @@
 
 #include "BattlefieldMsg.h"
 #include "SoldierMsg.h"
+#include "BulletsMsg.h"
 #include "GameStateMsg.h"
 
 class Server
@@ -18,7 +19,7 @@ public:
 	void waitForClients();
 
 	void sendBeforeBattleMsg(BattlefieldMsg* battlefieldMsg, SoldierMsg* greenSoldierMsg, SoldierMsg* blueSoldierMsg);
-	void sendBattleMsg(SoldierMsg* greenSoldierMsg, SoldierMsg* blueSoldierMsg);
+	void sendBattleMsg(SoldierMsg* greenSoldierMsg, SoldierMsg* blueSoldierMsg, BulletsMsg* greenBulletsMsg, BulletsMsg* blueBulletsMsg);
 	void sendGameStateMsg(GameStateMsg* gameStateMsg);
 	std::vector<char> recvMsgFromGreenPlayer();
 	std::vector<char> recvMsgFromBluePlayer();
@@ -42,4 +43,5 @@ private:
 
 	void sendBattlefieldMsg(BattlefieldMsg* battlefieldMsg);
 	void sendSoldierMsg(SoldierMsg* soldierMsg);
+	void sendBulletsMsg(BulletsMsg* bulletsMsg);
 };
