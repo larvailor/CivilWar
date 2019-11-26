@@ -60,6 +60,38 @@ void Serializer::setBlueSoldier(Soldier* blueSoldier)
 
 
 
+void Serializer::setGreenBullets(std::vector<Bullet*> greenBullets)
+{
+	std::mutex mutex;
+	std::lock_guard<std::mutex> lock(mutex);
+
+	m_greenBullets.clear();
+	for (auto bullet = greenBullets.begin(); bullet != greenBullets.end(); bullet++) {
+		BulletStruct newBullet;
+		newBullet.center = (*bullet)->getCenter();
+		newBullet.radius = (*bullet)->getRadius();
+		m_greenBullets.push_back(newBullet);
+	}
+}
+
+
+
+void Serializer::setBlueBullets(std::vector<Bullet*> blueBullets)
+{
+	std::mutex mutex;
+	std::lock_guard<std::mutex> lock(mutex);
+
+	m_blueBullets.clear();
+	for (auto bullet = blueBullets.begin(); bullet != blueBullets.end(); bullet++) {
+		BulletStruct newBullet;
+		newBullet.center = (*bullet)->getCenter();
+		newBullet.radius = (*bullet)->getRadius();
+		m_blueBullets.push_back(newBullet);
+	}
+}
+
+
+
 BattlefieldMsg* Serializer::createBattlefieldMsg(BattlefieldStruct* battlefieldStruct)
 {
 	setBattlefield(battlefieldStruct);
@@ -89,6 +121,28 @@ SoldierMsg* Serializer::createBlueSoldierMsg(Soldier* blueSoldier)
 	SoldierMsg* blueSldrMsg = new SoldierMsg(BLUE_SOLDIER);
 	blueSldrMsg->create(&m_blueSoldier);
 	return blueSldrMsg;
+}
+
+
+
+BulletsMsg* Serializer::createGreenBulletsMsg(std::vector<Bullet*> bullets)
+{
+	setGreenBullets(bullets);
+
+	BulletsMsg* bulletsMsg = new BulletsMsg(m_greenBullets.size(), GREEN_BULLETS);
+	bulletsMsg->create(m_greenBullets);
+	return bulletsMsg;
+}
+
+
+
+BulletsMsg* Serializer::createBlueBulletsMsg(std::vector<Bullet*> bullets)
+{
+	setBlueBullets(bullets);
+
+	BulletsMsg* bulletsMsg = new BulletsMsg(m_blueBullets.size(), GREEN_BULLETS);
+	bulletsMsg->create(m_blueBullets);
+	return bulletsMsg;
 }
 
 

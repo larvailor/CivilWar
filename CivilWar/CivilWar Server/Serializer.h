@@ -9,6 +9,7 @@
 
 #include "BattlefieldMsg.h"
 #include "SoldierMsg.h"
+#include "BulletsMsg.h"
 #include "GameStateMsg.h"
 
 #include <list>
@@ -26,11 +27,15 @@ public:
 	BattlefieldMsg* createBattlefieldMsg(BattlefieldStruct* battlefieldStruct);
 	SoldierMsg* createGreenSoldierMsg(Soldier* greenSoldier);
 	SoldierMsg* createBlueSoldierMsg(Soldier* blueSoldier);
+	BulletsMsg* createGreenBulletsMsg(std::vector<Bullet*> bullets);
+	BulletsMsg* createBlueBulletsMsg(std::vector<Bullet*> bullets);
 	GameStateMsg* createGameStateMsg(char gameState, char advancedInfo = NULL);
 
 	void setBattlefield(BattlefieldStruct* bttlfieldStr);
 	void setGreenSoldier(Soldier* greenSoldier);
 	void setBlueSoldier(Soldier* blueSoldier);
+	void setGreenBullets(std::vector<Bullet*> greenBullets);
+	void setBlueBullets(std::vector<Bullet*> blueBullets);
 
 private:
 	// variables
@@ -38,5 +43,6 @@ private:
 	SoldierStruct m_greenSoldier;
 	SoldierStruct m_blueSoldier;
 
-	std::list<BulletStruct> m_bullets;
+	std::vector<BulletStruct> m_greenBullets;
+	std::vector<BulletStruct> m_blueBullets;
 };

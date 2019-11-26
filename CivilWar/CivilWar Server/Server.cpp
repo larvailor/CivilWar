@@ -184,7 +184,7 @@ void Server::sendBeforeBattleMsg(BattlefieldMsg* battlefieldMsg, SoldierMsg* gre
 
 
 
-void Server::sendBattleMsg(SoldierMsg* greenSoldierMsg, SoldierMsg* blueSoldierMsg)
+void Server::sendBattleMsg(SoldierMsg* greenSoldierMsg, SoldierMsg* blueSoldierMsg, BulletsMsg* greenBulletsMsg, BulletsMsg* blueBulletsMsg)
 {
 	// greeen soldier
 	try {
@@ -197,6 +197,22 @@ void Server::sendBattleMsg(SoldierMsg* greenSoldierMsg, SoldierMsg* blueSoldierM
 	// blue soldier
 	try {
 		sendSoldierMsg(blueSoldierMsg);
+	}
+	catch (BaseCWServerException e) {
+		std::cout << e.getMsg() << std::endl;
+	}
+
+	// green bullets
+	try {
+		sendBulletsMsg(greenBulletsMsg);
+	}
+	catch (BaseCWServerException e) {
+		std::cout << e.getMsg() << std::endl;
+	}
+
+	// blue bullets
+	try {
+		sendBulletsMsg(blueBulletsMsg);
 	}
 	catch (BaseCWServerException e) {
 		std::cout << e.getMsg() << std::endl;
@@ -248,6 +264,32 @@ void Server::sendSoldierMsg(SoldierMsg* soldierMsg)
 	bytesSent = m_socketTcp->sendMsgToClient(m_blueSoldierSocket, msg.data(), msg.size(), NULL);
 	if (bytesSent == SOCKET_ERROR) {
 		errorMsg += "sendSoldierMsg msg to blue player failed with error: " + std::to_string(WSAGetLastError());
+	}
+
+	if (errorMsg.length() != 0) {
+		throw BaseCWServerException(errorMsg);
+	}
+}
+
+
+
+void Server::sendBulletsMsg(BulletsMsg* bulletsMsg)
+{
+	std::vector<char> msg = bulletsMsg->getMsg();
+	delete(bulletsMsg);
+
+	int bytesSent = 0;
+	std::string errorMsg;
+	// send to green player
+	bytesSent = m_socketTcp->sendMsgToClient(m_greenSoldierSocket, msg.data(), msg.size(), NULL);
+	if (bytesSent == SOCKET_ERROR) {
+		errorMsg += "sendBulletsMsg msg to green player failed with error: " + std::to_string(WSAGetLastError());
+	}
+
+	// send to second player
+	bytesSent = m_socketTcp->sendMsgToClient(m_blueSoldierSocket, msg.data(), msg.size(), NULL);
+	if (bytesSent == SOCKET_ERROR) {
+		errorMsg += "sendBulletsMsg msg to blue player failed with error: " + std::to_string(WSAGetLastError());
 	}
 
 	if (errorMsg.length() != 0) {
