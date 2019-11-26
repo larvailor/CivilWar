@@ -9,7 +9,6 @@
 
 #include <cmath>
 #include <mutex>
-#include <iostream>
 
 CivilWar::CivilWar() :
 	m_battlefield(nullptr),
@@ -180,9 +179,8 @@ void CivilWar::moveSoldier(Soldier* soldier, char pressedKey)
 
 void CivilWar::moveBulletsThread()
 {
-	std::this_thread::sleep_for(std::chrono::milliseconds(50));
-
 	while (m_isRunning) {
+		std::this_thread::sleep_for(std::chrono::milliseconds(50));
 		moveBullets(m_greenBullets);
 		moveBullets(m_blueBullets);
 	}
