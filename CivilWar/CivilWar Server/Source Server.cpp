@@ -10,8 +10,6 @@
 
 int main()
 {
-	Server* server = new Server();
-
 	// gameloop
 	Game* game = new Game();
 	try {
@@ -31,7 +29,6 @@ int main()
 		std::cout << "Server failed with error:\n" << e.what() << std::endl;
 	}
 
-	delete(server);
 	delete(game);
 	return 0;
 }
